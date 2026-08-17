@@ -191,7 +191,14 @@ export function Nav() {
                           transition={spring}
                           onMouseEnter={() => openNow(card.title)}
                           onMouseLeave={closeSoon}
-                          className="absolute left-0 top-full pt-3"
+                          // The hoverable box starts 8px *above* the trigger's
+                          // own bottom edge (overlapping it) instead of
+                          // exactly abutting it, so a hand tremor at the
+                          // boundary can't slip through a razor-thin gap
+                          // between the two hit areas — pt-5 keeps the
+                          // *visible* panel at the same offset it was at
+                          // with the old top-full + pt-3.
+                          className="absolute left-0 top-[calc(100%-8px)] pt-5"
                         >
                           <ServiceDropdown
                             items={card.children}

@@ -17,12 +17,13 @@ export function Hero() {
 
   return (
     <section id="top" className="relative overflow-hidden bg-background">
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
-        {/* Single confident column: type and space carry the hero, no
-            unexplained empty half. */}
+      <div className="mx-auto max-w-[1400px] px-6 pb-14 pt-10 md:pb-16 md:pt-12 lg:px-10 lg:pt-14">
+        {/* Title left, body/CTA right — same split as the sub-page heroes
+            (e.g. cyber/CyberPage.tsx) instead of a single column that left
+            the right half of the container empty. */}
         <div
           ref={ref}
-          className="max-w-[46rem] pb-10 pt-10 md:pb-12 md:pt-12 lg:pt-14"
+          className="grid gap-10 lg:grid-cols-[minmax(0,54fr)_minmax(0,46fr)] lg:gap-24"
         >
           <h1 data-hero-line className="display-1 text-foreground">
             {lead}
@@ -33,39 +34,43 @@ export function Hero() {
               </>
             ) : null}
           </h1>
-          <p data-hero-line className="lead measure mt-8 text-muted-foreground">
-            {hero.body}
-          </p>
-          <div
-            data-hero-line
-            className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4"
-          >
-            <a
-              href={`mailto:${brand.email}?subject=Prise%20de%20rendez-vous`}
-              className="press bg-primary px-7 py-3.5 text-[0.9375rem] font-medium text-primary-foreground hover:bg-primary-active"
+
+          <div className="lg:self-end">
+            <p data-hero-line className="lead measure text-foreground">
+              {hero.body}
+            </p>
+            <div
+              data-hero-line
+              className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4"
             >
-              {hero.ctaPrimary}
-            </a>
-            <a
-              href="#services"
-              className="link-underline text-[0.9375rem] font-medium text-foreground"
+              <a
+                href={`mailto:${brand.email}?subject=Prise%20de%20rendez-vous`}
+                className="press bg-primary px-7 py-3.5 text-[0.9375rem] font-medium text-primary-foreground hover:bg-primary-active"
+              >
+                {hero.ctaPrimary}
+              </a>
+              <a
+                href="#services"
+                className="link-underline text-[0.9375rem] font-medium text-foreground"
+              >
+                {hero.ctaSecondary}
+              </a>
+            </div>
+            <p
+              data-hero-line
+              className="mt-6 text-[0.8125rem] text-muted-foreground"
             >
-              {hero.ctaSecondary}
-            </a>
+              Pas de disponibilité tout de suite&nbsp;? Écrivez-nous directement
+              à{" "}
+              <a
+                href={`mailto:${brand.email}`}
+                className="link-underline text-foreground"
+              >
+                {brand.email}
+              </a>
+              .
+            </p>
           </div>
-          <p
-            data-hero-line
-            className="mt-6 text-[0.8125rem] text-muted-foreground"
-          >
-            Pas de disponibilité tout de suite&nbsp;? Écrivez-nous directement à{" "}
-            <a
-              href={`mailto:${brand.email}`}
-              className="link-underline text-foreground"
-            >
-              {brand.email}
-            </a>
-            .
-          </p>
         </div>
       </div>
     </section>

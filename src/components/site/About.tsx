@@ -1,5 +1,6 @@
 import { about } from "@/content/home";
 import { useScrollReveal } from "@/lib/motion";
+import { IconCloud } from "@/components/site/IconCloud/IconCloud";
 
 export function About() {
   const ref = useScrollReveal<HTMLDivElement>({
@@ -11,20 +12,29 @@ export function About() {
   return (
     <section id="adn" className="border-t border-border bg-background">
       <div className="mx-auto max-w-[1400px] px-6 py-16 md:py-20 lg:px-10">
-        <h2 className="display-2 max-w-[42rem] text-foreground">
-          {about.title}
-        </h2>
+        <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_22rem] md:items-center md:gap-16">
+          <div>
+            <h2 className="display-2 max-w-[42rem] text-foreground">
+              {about.title}
+            </h2>
 
-        <div className="mt-8 max-w-[46rem] md:mt-10">
-          {/* Pulled-out lead sentence, then the quieter supporting copy. */}
-          <p className="lead measure font-medium text-foreground">
-            {firstParagraph}
-          </p>
-          {rest.map((p) => (
-            <p key={p} className="body-copy measure mt-6 text-muted-foreground">
-              {p}
-            </p>
-          ))}
+            <div className="mt-8 max-w-[46rem] md:mt-10">
+              {/* Pulled-out lead sentence, then the quieter supporting copy. */}
+              <p className="lead measure font-medium text-foreground">
+                {firstParagraph}
+              </p>
+              {rest.map((p) => (
+                <p
+                  key={p}
+                  className="body-copy measure mt-6 text-muted-foreground"
+                >
+                  {p}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <IconCloud />
         </div>
 
         <div

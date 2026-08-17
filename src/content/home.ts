@@ -44,6 +44,9 @@ export const navServices = [
   },
   {
     title: "Pôle Cybersécurité",
+    /** Shorter label for the nav trigger itself; the full name stays
+     * everywhere else (page hero, breadcrumbs). */
+    navLabel: "Cybersécurité",
     tagline: "Protection, tests et conformité",
     href: "/cybersecurite",
     children: [

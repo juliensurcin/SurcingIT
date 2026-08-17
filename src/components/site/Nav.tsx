@@ -42,7 +42,7 @@ function NavLink({
   className?: string;
   children: React.ReactNode;
 }) {
-  if (href.startsWith("/")) {
+  if (href.startsWith("/") && !href.includes("#")) {
     return (
       <Link to={href} onClick={onClick} className={className}>
         {children}
@@ -56,74 +56,42 @@ function NavLink({
   );
 }
 
-/**
- * Two stacked grids (headers, then sub-items) instead of one grid per
- * column: CSS Grid's default row-stretch then guarantees every header
- * block is exactly the same height — and the divider that follows is a
- * single full-width rule, not three independent ones that can drift
- * apart depending on how long each tagline happens to be.
- */
-function ServicesPanel({ onNavigate }: { onNavigate: () => void }) {
+/** Compact single-column dropdown, one per nav item instead of one shared
+ * mega-panel — each top-level entry now owns its own menu. */
+function ServiceDropdown({
+  items,
+  onNavigate,
+}: {
+  items: { title: string; href: string }[];
+  onNavigate: () => void;
+}) {
   return (
-    <div className="w-[min(92vw,880px)] border border-border bg-background shadow-[0_24px_60px_-30px_rgb(15_23_42/0.25)]">
-      <div className="grid md:grid-cols-3">
-        {navServices.map((card) => (
-          <NavLink
-            key={card.title}
-            href={card.href}
-            onClick={onNavigate}
-            className="group block border-border px-6 py-6 transition-colors hover:bg-surface md:border-l md:first:border-l-0"
-          >
-            <h3 className="display-4 text-foreground group-hover:text-primary">
-              {card.title}
-            </h3>
-            <p className="small-copy mt-2 text-muted-foreground">
-              {card.tagline}
-            </p>
-          </NavLink>
-        ))}
-      </div>
-      <div className="grid border-t border-border md:grid-cols-3">
-        {navServices.map((card) => (
-          <div
-            key={card.title}
-            className="border-border md:border-l md:first:border-l-0"
-          >
-            {card.children.length > 0 ? (
-              <ul className="px-6 py-4">
-                {card.children.map((sub) => (
-                  <li key={sub.title}>
-                    <a
-                      href={sub.href}
-                      onClick={onNavigate}
-                      className="block py-2 text-[0.8125rem] leading-snug text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      <span className="text-foreground">{sub.title}</span>
-                      <br />
-                      {sub.tagline}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-        ))}
-      </div>
+    <div className="min-w-[15rem] max-w-[20rem] border border-border bg-background py-2 shadow-[0_24px_60px_-30px_rgb(15_23_42/0.25)]">
+      {items.map((item) => (
+        <a
+          key={item.title}
+          href={item.href}
+          onClick={onNavigate}
+          className="block px-4 py-2.5 text-[0.8125rem] leading-snug text-foreground transition-colors hover:bg-surface"
+        >
+          {item.title}
+        </a>
+      ))}
     </div>
   );
 }
 
 export function Nav() {
   const scrolled = useScrolled(12);
-  const [open, setOpen] = useState(false);
+  const [openKey, setOpenKey] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileOpenKey, setMobileOpenKey] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setOpen(false);
+        setOpenKey(null);
         setMobileOpen(false);
       }
     };
@@ -142,18 +110,18 @@ export function Nav() {
     };
   }, [mobileOpen]);
 
-  const openNow = () => {
+  const openNow = (key: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    setOpen(true);
+    setOpenKey(key);
   };
   const closeSoon = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setOpen(false), 120);
+    closeTimer.current = setTimeout(() => setOpenKey(null), 120);
   };
 
   const handleMobileClose = () => {
     setMobileOpen(false);
-    setServicesOpen(false);
+    setMobileOpenKey(null);
   };
 
   return (
@@ -162,28 +130,74 @@ export function Nav() {
         scrolled ? "border-b border-border" : "border-b border-transparent"
       }`}
     >
-      <div className="relative mx-auto grid h-14 max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-6 px-6 lg:px-10">
+      <div className="mx-auto grid h-14 max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-6 px-6 lg:px-10">
         <div className="flex min-w-0 items-center gap-10">
           <Link to="/" className="text-[0.95rem] text-foreground">
             <Wordmark />
           </Link>
           <nav aria-label="Navigation principale" className="hidden md:block">
             <ul className="flex items-center gap-5 lg:gap-7">
-              <li onMouseEnter={openNow} onMouseLeave={closeSoon}>
-                <button
-                  type="button"
-                  aria-expanded={open}
-                  onFocus={openNow}
-                  onClick={() => setOpen((v) => !v)}
-                  className="flex items-center gap-1.5 text-[0.8125rem] text-muted-foreground transition-colors hover:text-foreground data-[state=open]:text-foreground"
-                  data-state={open ? "open" : "closed"}
-                >
-                  Services
-                  <ChevronDown
-                    className={`size-3.5 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-                  />
-                </button>
-              </li>
+              {navServices.map((card) => {
+                const label = card.navLabel ?? card.title;
+                if (card.children.length === 0) {
+                  return (
+                    <li key={card.title}>
+                      <NavLink
+                        href={card.href}
+                        className="link-underline text-[0.8125rem] text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        {label}
+                      </NavLink>
+                    </li>
+                  );
+                }
+                const isOpen = openKey === card.title;
+                return (
+                  <li
+                    key={card.title}
+                    className="relative"
+                    onMouseEnter={() => openNow(card.title)}
+                    onMouseLeave={closeSoon}
+                  >
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      onFocus={() => openNow(card.title)}
+                      onClick={() =>
+                        setOpenKey((k) =>
+                          k === card.title ? null : card.title,
+                        )
+                      }
+                      className="flex items-center gap-1.5 text-[0.8125rem] text-muted-foreground transition-colors hover:text-foreground data-[state=open]:text-foreground"
+                      data-state={isOpen ? "open" : "closed"}
+                    >
+                      {label}
+                      <ChevronDown
+                        className={`size-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {isOpen ? (
+                        <motion.div
+                          initial={{ opacity: 0, y: -6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -6 }}
+                          transition={spring}
+                          onMouseEnter={() => openNow(card.title)}
+                          onMouseLeave={closeSoon}
+                          className="absolute left-0 top-full pt-3"
+                        >
+                          <ServiceDropdown
+                            items={card.children}
+                            onNavigate={() => setOpenKey(null)}
+                          />
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
+                  </li>
+                );
+              })}
               {links.map((l) => (
                 <li key={l.href}>
                   <a
@@ -217,23 +231,6 @@ export function Nav() {
             <BurgerIcon open={mobileOpen} />
           </button>
         </div>
-
-        {/* Desktop hover panel */}
-        <AnimatePresence>
-          {open ? (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={spring}
-              onMouseEnter={openNow}
-              onMouseLeave={closeSoon}
-              className="absolute left-6 top-full hidden lg:left-10 md:block"
-            >
-              <ServicesPanel onNavigate={() => setOpen(false)} />
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
       </div>
 
       {/* Mobile full-screen menu */}
@@ -259,67 +256,71 @@ export function Nav() {
               className="flex h-full flex-col justify-between overflow-y-auto px-6 py-8"
             >
               <div className="space-y-2">
-                <div className="border-b border-border">
-                  <button
-                    type="button"
-                    aria-expanded={servicesOpen}
-                    onClick={() => setServicesOpen((v) => !v)}
-                    className="flex w-full items-center justify-between py-5 text-left"
-                  >
-                    <span className="display-2 text-foreground">Services</span>
-                    <ChevronDown
-                      className={`size-5 text-muted-foreground transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {servicesOpen ? (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                        className="overflow-hidden"
+                {navServices.map((card) => {
+                  const label = card.navLabel ?? card.title;
+                  if (card.children.length === 0) {
+                    return (
+                      <NavLink
+                        key={card.title}
+                        href={card.href}
+                        onClick={handleMobileClose}
+                        className="display-2 block border-b border-border py-5 text-foreground"
                       >
-                        <div className="pb-6">
-                          {navServices.map((card) => (
-                            <div
-                              key={card.title}
-                              className="border-b border-border last:border-b-0"
-                            >
-                              <NavLink
-                                href={card.href}
-                                onClick={handleMobileClose}
-                                className="block py-3"
-                              >
-                                <span className="display-4 text-foreground">
-                                  {card.title}
-                                </span>
-                                <p className="small-copy mt-1 text-muted-foreground">
-                                  {card.tagline}
-                                </p>
-                              </NavLink>
-                              {card.children.length > 0 ? (
-                                <ul className="mb-3 space-y-2 pl-4">
-                                  {card.children.map((sub) => (
-                                    <li key={sub.title}>
-                                      <a
-                                        href={sub.href}
-                                        onClick={handleMobileClose}
-                                        className="text-[0.875rem] text-muted-foreground"
-                                      >
-                                        {sub.title}
-                                      </a>
-                                    </li>
-                                  ))}
-                                </ul>
-                              ) : null}
-                            </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
+                        {label}
+                      </NavLink>
+                    );
+                  }
+                  const isOpen = mobileOpenKey === card.title;
+                  return (
+                    <div key={card.title} className="border-b border-border">
+                      <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        onClick={() =>
+                          setMobileOpenKey((k) =>
+                            k === card.title ? null : card.title,
+                          )
+                        }
+                        className="flex w-full items-center justify-between py-5 text-left"
+                      >
+                        <span className="display-2 text-foreground">
+                          {label}
+                        </span>
+                        <ChevronDown
+                          className={`size-5 text-muted-foreground transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {isOpen ? (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{
+                              duration: 0.25,
+                              ease: [0.16, 1, 0.3, 1],
+                            }}
+                            className="overflow-hidden"
+                          >
+                            <ul className="space-y-1 pb-6">
+                              {card.children.map((sub) => (
+                                <li key={sub.title}>
+                                  <a
+                                    href={sub.href}
+                                    onClick={handleMobileClose}
+                                    className="block py-2 text-[0.9375rem] text-muted-foreground"
+                                  >
+                                    {sub.title}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </motion.div>
+                        ) : null}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
 
                 {links.map((l) => (
                   <a

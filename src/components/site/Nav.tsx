@@ -114,9 +114,14 @@ export function Nav() {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpenKey(key);
   };
+  // 120ms (the old single-panel value) was too tight now that the mouse can
+  // travel from one item's dropdown to a sibling trigger: crossing the gap
+  // between them sometimes took longer than that, so the panel closed and
+  // immediately reopened — visible as a flicker. 250ms gives that crossing
+  // enough room without making a genuine mouse-away feel laggy to close.
   const closeSoon = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setOpenKey(null), 120);
+    closeTimer.current = setTimeout(() => setOpenKey(null), 250);
   };
 
   const handleMobileClose = () => {

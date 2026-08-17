@@ -1,9 +1,20 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { consultantCare } from "@/content/home";
 import { useScrollReveal } from "@/lib/motion";
 
+/**
+ * Same editorial accordion pattern as securite-managee's Levels.tsx: each
+ * item expands in place on click, one open by default. No floating
+ * diagram — the content is the interaction.
+ */
 export function ConsultantCare() {
   const ref = useScrollReveal<HTMLDivElement>({
-    stagger: "[data-care-row]",
+    stagger: "[data-care-item]",
     variant: "rows",
   });
 
@@ -20,19 +31,33 @@ export function ConsultantCare() {
           </p>
         </div>
 
-        <div ref={ref} className="mt-12 border-t border-border md:mt-16">
-          {consultantCare.cards.map((c) => (
-            <article
-              key={c.title}
-              data-care-row
-              className="grid gap-2 border-b border-border py-8 md:grid-cols-[minmax(0,320px)_minmax(0,1fr)] md:gap-12"
-            >
-              <h3 className="display-4 text-foreground">{c.title}</h3>
-              <p className="small-copy measure text-muted-foreground">
-                {c.description}
-              </p>
-            </article>
-          ))}
+        <div ref={ref} className="mt-12 md:mt-16">
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue={consultantCare.cards[0]!.title}
+            className="border-t border-border"
+          >
+            {consultantCare.cards.map((c) => (
+              <AccordionItem
+                key={c.title}
+                value={c.title}
+                data-care-item
+                className="group border-b border-border"
+              >
+                <AccordionTrigger className="items-start gap-6 py-7 hover:no-underline md:py-9 [&>svg]:mt-2 [&>svg]:size-5 [&>svg]:text-muted-foreground [&>svg]:transition-transform [&>svg]:duration-500 group-data-[state=open]:[&>svg]:text-primary">
+                  <h3 className="display-3 text-foreground transition-colors duration-500 group-hover:text-primary group-data-[state=open]:text-primary">
+                    {c.title}
+                  </h3>
+                </AccordionTrigger>
+                <AccordionContent className="pb-10 pt-0 md:pb-14">
+                  <p className="small-copy measure text-muted-foreground">
+                    {c.description}
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </div>
     </section>

@@ -63,7 +63,7 @@ function fibonacciSphere(count: number, radius: number) {
   return points;
 }
 
-export function IconCloud() {
+export function IconCloud({ slugs = SLUGS }: { slugs?: string[] }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -98,8 +98,8 @@ export function IconCloud() {
       loaded: boolean;
     };
 
-    const positions = fibonacciSphere(SLUGS.length, radius());
-    const icons: IconPoint[] = SLUGS.map((slug, i) => {
+    const positions = fibonacciSphere(slugs.length, radius());
+    const icons: IconPoint[] = slugs.map((slug, i) => {
       const img = new window.Image();
       const point: IconPoint = { ...positions[i]!, img, loaded: false };
       img.onload = () => {
@@ -247,7 +247,7 @@ export function IconCloud() {
       window.removeEventListener("pointerup", onPointerUp);
       window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [slugs]);
 
   return (
     <div className={styles["wrap"]}>

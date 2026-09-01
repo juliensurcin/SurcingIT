@@ -10,25 +10,19 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ConseilItStrategiqueRouteImport } from './routes/conseil-it-strategique'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
 import { Route as PolitiqueDeConfidentialiteRouteImport } from './routes/politique-de-confidentialite'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SourcingRecrutementItRouteImport } from './routes/sourcing-recrutement-it'
 import { Route as CybersecuriteIndexRouteImport } from './routes/cybersecurite/index'
-import { Route as CybersecuriteGrcRouteImport } from './routes/cybersecurite/grc'
+import { Route as CybersecuriteGouvernanceConseilRouteImport } from './routes/cybersecurite/gouvernance-conseil'
 import { Route as CybersecuriteSecuriteManageeRouteImport } from './routes/cybersecurite/securite-managee'
 import { Route as CybersecuriteTestIntrusionAuditRouteImport } from './routes/cybersecurite/test-intrusion-audit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConseilItStrategiqueRoute = ConseilItStrategiqueRouteImport.update({
-  id: '/conseil-it-strategique',
-  path: '/conseil-it-strategique',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -62,11 +56,12 @@ const CybersecuriteIndexRoute = CybersecuriteIndexRouteImport.update({
   path: '/cybersecurite/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CybersecuriteGrcRoute = CybersecuriteGrcRouteImport.update({
-  id: '/cybersecurite/grc',
-  path: '/cybersecurite/grc',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const CybersecuriteGouvernanceConseilRoute =
+  CybersecuriteGouvernanceConseilRouteImport.update({
+    id: '/cybersecurite/gouvernance-conseil',
+    path: '/cybersecurite/gouvernance-conseil',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CybersecuriteSecuriteManageeRoute =
   CybersecuriteSecuriteManageeRouteImport.update({
     id: '/cybersecurite/securite-managee',
@@ -82,26 +77,24 @@ const CybersecuriteTestIntrusionAuditRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/conseil-it-strategique': typeof ConseilItStrategiqueRoute
   '/faq': typeof FaqRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sourcing-recrutement-it': typeof SourcingRecrutementItRoute
-  '/cybersecurite/grc': typeof CybersecuriteGrcRoute
+  '/cybersecurite/gouvernance-conseil': typeof CybersecuriteGouvernanceConseilRoute
   '/cybersecurite/securite-managee': typeof CybersecuriteSecuriteManageeRoute
   '/cybersecurite/test-intrusion-audit': typeof CybersecuriteTestIntrusionAuditRoute
   '/cybersecurite/': typeof CybersecuriteIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/conseil-it-strategique': typeof ConseilItStrategiqueRoute
   '/faq': typeof FaqRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sourcing-recrutement-it': typeof SourcingRecrutementItRoute
-  '/cybersecurite/grc': typeof CybersecuriteGrcRoute
+  '/cybersecurite/gouvernance-conseil': typeof CybersecuriteGouvernanceConseilRoute
   '/cybersecurite/securite-managee': typeof CybersecuriteSecuriteManageeRoute
   '/cybersecurite/test-intrusion-audit': typeof CybersecuriteTestIntrusionAuditRoute
   '/cybersecurite': typeof CybersecuriteIndexRoute
@@ -109,13 +102,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/conseil-it-strategique': typeof ConseilItStrategiqueRoute
   '/faq': typeof FaqRoute
   '/mentions-legales': typeof MentionsLegalesRoute
   '/politique-de-confidentialite': typeof PolitiqueDeConfidentialiteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sourcing-recrutement-it': typeof SourcingRecrutementItRoute
-  '/cybersecurite/grc': typeof CybersecuriteGrcRoute
+  '/cybersecurite/gouvernance-conseil': typeof CybersecuriteGouvernanceConseilRoute
   '/cybersecurite/securite-managee': typeof CybersecuriteSecuriteManageeRoute
   '/cybersecurite/test-intrusion-audit': typeof CybersecuriteTestIntrusionAuditRoute
   '/cybersecurite/': typeof CybersecuriteIndexRoute
@@ -124,39 +116,36 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/conseil-it-strategique'
     | '/faq'
     | '/mentions-legales'
     | '/politique-de-confidentialite'
     | '/sitemap.xml'
     | '/sourcing-recrutement-it'
-    | '/cybersecurite/grc'
+    | '/cybersecurite/gouvernance-conseil'
     | '/cybersecurite/securite-managee'
     | '/cybersecurite/test-intrusion-audit'
     | '/cybersecurite/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/conseil-it-strategique'
     | '/faq'
     | '/mentions-legales'
     | '/politique-de-confidentialite'
     | '/sitemap.xml'
     | '/sourcing-recrutement-it'
-    | '/cybersecurite/grc'
+    | '/cybersecurite/gouvernance-conseil'
     | '/cybersecurite/securite-managee'
     | '/cybersecurite/test-intrusion-audit'
     | '/cybersecurite'
   id:
     | '__root__'
     | '/'
-    | '/conseil-it-strategique'
     | '/faq'
     | '/mentions-legales'
     | '/politique-de-confidentialite'
     | '/sitemap.xml'
     | '/sourcing-recrutement-it'
-    | '/cybersecurite/grc'
+    | '/cybersecurite/gouvernance-conseil'
     | '/cybersecurite/securite-managee'
     | '/cybersecurite/test-intrusion-audit'
     | '/cybersecurite/'
@@ -164,13 +153,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ConseilItStrategiqueRoute: typeof ConseilItStrategiqueRoute
   FaqRoute: typeof FaqRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
   PolitiqueDeConfidentialiteRoute: typeof PolitiqueDeConfidentialiteRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SourcingRecrutementItRoute: typeof SourcingRecrutementItRoute
-  CybersecuriteGrcRoute: typeof CybersecuriteGrcRoute
+  CybersecuriteGouvernanceConseilRoute: typeof CybersecuriteGouvernanceConseilRoute
   CybersecuriteSecuriteManageeRoute: typeof CybersecuriteSecuriteManageeRoute
   CybersecuriteTestIntrusionAuditRoute: typeof CybersecuriteTestIntrusionAuditRoute
   CybersecuriteIndexRoute: typeof CybersecuriteIndexRoute
@@ -183,13 +171,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/conseil-it-strategique': {
-      id: '/conseil-it-strategique'
-      path: '/conseil-it-strategique'
-      fullPath: '/conseil-it-strategique'
-      preLoaderRoute: typeof ConseilItStrategiqueRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -234,11 +215,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CybersecuriteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/cybersecurite/grc': {
-      id: '/cybersecurite/grc'
-      path: '/cybersecurite/grc'
-      fullPath: '/cybersecurite/grc'
-      preLoaderRoute: typeof CybersecuriteGrcRouteImport
+    '/cybersecurite/gouvernance-conseil': {
+      id: '/cybersecurite/gouvernance-conseil'
+      path: '/cybersecurite/gouvernance-conseil'
+      fullPath: '/cybersecurite/gouvernance-conseil'
+      preLoaderRoute: typeof CybersecuriteGouvernanceConseilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cybersecurite/securite-managee': {
@@ -260,13 +241,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ConseilItStrategiqueRoute: ConseilItStrategiqueRoute,
   FaqRoute: FaqRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
   PolitiqueDeConfidentialiteRoute: PolitiqueDeConfidentialiteRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SourcingRecrutementItRoute: SourcingRecrutementItRoute,
-  CybersecuriteGrcRoute: CybersecuriteGrcRoute,
+  CybersecuriteGouvernanceConseilRoute: CybersecuriteGouvernanceConseilRoute,
   CybersecuriteSecuriteManageeRoute: CybersecuriteSecuriteManageeRoute,
   CybersecuriteTestIntrusionAuditRoute: CybersecuriteTestIntrusionAuditRoute,
   CybersecuriteIndexRoute: CybersecuriteIndexRoute,

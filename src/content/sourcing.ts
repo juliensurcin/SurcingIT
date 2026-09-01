@@ -1,11 +1,15 @@
+import { createLocaleContent } from "@/lib/i18n";
+import * as en from "./sourcing.en";
+
 export const sourcingHero = {
   eyebrow: "Sourcing & Recrutement IT",
-  title:
-    "Recrutement IT : des profils validés par des ingénieurs, pas par des mots-clés",
+  titleLead: "Recrutement IT :",
+  titleAccent: "des profils validés par des ingénieurs,",
+  titleTail: "pas par des mots-clés",
   paragraphs: [
-    "Avez-vous déjà trié dix CV pour n'en garder aucun ? Ou reçus des CVs de recruteurs qui vous envoient tout ce qu'il trouve, en espérant que ça colle ?",
+    "Avez-vous déjà trié dix CV pour n'en garder aucun ? Ou reçu des CV de recruteurs qui vous envoient tout ce qu'ils trouvent, en espérant que ça colle ?",
     "Chez SurcingIT, aucun profil ne part chez un client sans être passé devant un de nos ingénieurs. Pas un recruteur qui coche des cases sur une fiche de poste, un ingénieur qui parle le même langage que le candidat, et qui sait faire la différence entre quelqu'un qui a mis une compétence sur son CV et quelqu'un qui l'a vraiment pratiquée.",
-    "On ne vous envoie pas des CVs en masse, on vous envoie des CVs qui répondent à vos besoins précis.",
+    "On ne vous envoie pas des CV en masse, on vous envoie des CV qui répondent à vos besoins précis.",
   ],
   cta: "Parlons de votre besoin",
 };
@@ -26,7 +30,7 @@ export const processSection = {
     },
     {
       title: "Organisation de la rencontre",
-      body: "Nous vous présentons une short-list des candidats que nous avons sélectionné. Pour chaque profil : les raisons de sa sélection, ses compétences clés, ses axes de progression, et notre évaluation objective, y compris nos réserves éventuelles.",
+      body: "Nous vous présentons une short-list des candidats que nous avons sélectionnés. Pour chaque profil : les raisons de sa sélection, ses compétences clés, ses axes de progression, et notre évaluation objective, y compris nos réserves éventuelles.",
     },
     {
       title: "Rencontre client",
@@ -44,16 +48,16 @@ export const formulasSection = {
   title: "Trois façons de travailler ensemble",
   items: [
     {
-      title: "Cabinet de recrutement",
-      body: "Vous cherchez à recruter en interne, directement dans vos effectifs. On s'occupe du sourcing, de la qualification technique et de la présentation des candidats. Vous, vous rencontrez uniquement des profils qui tiennent la route et vous embauchez en direct.",
-      noteLabel: "Ce que ça vous évite",
-      note: "Les heures passées à trier des candidatures, les entretiens techniques qui mobilisent vos meilleurs ingénieurs, et le coût d'une erreur de recrutement.",
-    },
-    {
       title: "Assistance technique",
       body: "Vous avez un projet, un pic de charge, une compétence qui vous manque pour six mois ou pour trois ans. Le consultant intervient chez vous sur la mission, sans passer sur votre masse salariale.",
       noteLabel: "Ce que ça vous apporte",
       note: "De la souplesse. Vous ajustez la présence et la disponibilité du consultant selon vos projets, sans les contraintes d'un recrutement définitif.",
+    },
+    {
+      title: "Cabinet de recrutement",
+      body: "Vous cherchez à recruter en interne, directement dans vos effectifs. On s'occupe du sourcing, de la qualification technique et de la présentation des candidats. Vous, vous rencontrez uniquement des profils qui tiennent la route et vous embauchez en direct.",
+      noteLabel: "Ce que ça vous évite",
+      note: "Les heures passées à trier des candidatures, les entretiens techniques qui mobilisent vos meilleurs ingénieurs, et le coût d'une erreur de recrutement.",
     },
     {
       title: "Pré-embauche",
@@ -87,10 +91,6 @@ export const consultantSide = {
       body: "Suivi individuel dans la durée, quel que soit le statut. Montée en compétences, certifications, positionnement sur le marché.",
     },
   ],
-  beyond: {
-    title: "Au-delà du bureau",
-    body: "Nous organisons des moments qui ne concernent aucune mission en particulier : soirées, sorties, moments de rencontre entre consultants intervenant chez des clients différents. Ces occasions contribuent à une connaissance réelle de chacun, et à une relation de confiance qui perdure au-delà du cadre strictement professionnel.",
-  },
 };
 
 export const sourcingCta = {
@@ -98,3 +98,14 @@ export const sourcingCta = {
   body: "Décrivez-nous votre besoin : nous vous répondrons avec franchise sur notre capacité à y répondre, y compris si ce n'est pas le cas.",
   cta: "Contactez-nous",
 };
+
+export const useSourcingContent = createLocaleContent(
+  {
+    sourcingHero,
+    processSection,
+    formulasSection,
+    consultantSide,
+    sourcingCta,
+  },
+  en,
+);

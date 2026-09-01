@@ -2,12 +2,11 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { brand } from "@/content/home";
-import { faqPage, faqCategories } from "@/content/faq";
+import { useFaqContent } from "@/content/faq";
+import { useUiContent } from "@/content/ui";
 import { useScrollReveal, useSmoothScroll } from "@/lib/motion";
 import { Nav } from "@/components/site/Nav";
 import { Wordmark } from "@/components/site/Wordmark";
-
-const mailto = `mailto:${brand.email}?subject=Question`;
 
 function slugify(value: string) {
   return value
@@ -99,6 +98,9 @@ function FaqCategoryBlock({
 }
 
 export function FaqPage() {
+  const { faqPage, faqCategories } = useFaqContent();
+  const { breadcrumb, footer } = useUiContent();
+  const mailto = `mailto:${brand.email}?subject=${encodeURIComponent(faqPage.mailtoSubject)}`;
   useSmoothScroll();
 
   return (
@@ -108,11 +110,11 @@ export function FaqPage() {
         <section className="bg-background">
           <div className="mx-auto max-w-[1400px] px-6 pb-14 pt-10 md:pb-16 md:pt-12 lg:px-10">
             <nav
-              aria-label="Fil d'ariane"
+              aria-label={breadcrumb.label}
               className="text-[0.8125rem] text-muted-foreground"
             >
               <Link to="/" className="link-underline hover:text-foreground">
-                Accueil
+                {breadcrumb.home}
               </Link>
               <span className="px-2 text-border-strong">/</span>
               <span className="text-foreground">FAQ</span>
@@ -126,7 +128,7 @@ export function FaqPage() {
             </div>
 
             <nav
-              aria-label="Catégories"
+              aria-label={faqPage.categoriesLabel}
               className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-border pt-6"
             >
               {faqCategories.map((category) => (
@@ -156,13 +158,13 @@ export function FaqPage() {
 
         <section className="bg-foreground">
           <div className="mx-auto max-w-[1400px] px-6 py-16 md:py-20 lg:px-10">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)] lg:items-end lg:gap-20">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)] lg:items-center lg:gap-20">
               <div>
                 <h2 className="display-2 text-background">
-                  Une question qu'on n'a pas couverte ici ?
+                  {faqPage.closingTitle}
                 </h2>
                 <p className="lead measure mt-7 text-background/70">
-                  Écrivez-nous directement, nous vous répondons en personne.
+                  {faqPage.closingBody}
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-6 lg:justify-end">
@@ -170,7 +172,7 @@ export function FaqPage() {
                   href={mailto}
                   className="press bg-background px-6 py-4 text-[0.9375rem] font-medium text-foreground hover:bg-background/90"
                 >
-                  Contactez-nous
+                  {faqPage.closingCta}
                 </a>
               </div>
             </div>
@@ -186,13 +188,13 @@ export function FaqPage() {
               to="/mentions-legales"
               className="link-underline hover:text-foreground"
             >
-              Mentions légales
+              {footer.legalNotice}
             </Link>
             <Link
               to="/politique-de-confidentialite"
               className="link-underline hover:text-foreground"
             >
-              Politique de confidentialité
+              {footer.privacyPolicy}
             </Link>
             <p>
               © {new Date().getFullYear()} {brand.name}

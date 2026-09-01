@@ -1,7 +1,8 @@
-import { singlePole } from "@/content/cyber";
+import { useCyberContent } from "@/content/cyber";
 import { useScrollReveal } from "@/lib/motion";
 
 export function SinglePole() {
+  const { singlePole } = useCyberContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-panel]",
     variant: "rows",

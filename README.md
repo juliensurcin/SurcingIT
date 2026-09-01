@@ -1,29 +1,27 @@
-# Welcome to your Lovable project
+# SurcingIT
 
-This project was built with [Lovable](https://lovable.dev).
+Site vitrine de SurcingIT, ESN hybride spécialisée en cybersécurité et en sourcing de talents IT.
 
-## Build with Lovable
+## Stack
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+- [TanStack Start](https://tanstack.com/start) (React 19 + TanStack Router) sur Vite 8
+- Tailwind CSS v4 (CSS-first, tokens dans `src/styles.css`), shadcn/radix pour les primitives d'UI
+- GSAP + ScrollTrigger, Lenis (scroll fluide) et framer-motion pour les animations
+- three.js / `@react-three/fiber` pour les visuels WebGL ponctuels
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Développement
 
 ```sh
 git clone <this-repository-url>
-cd <repository-name>
+cd suringit
 npm i
 npm run dev
 ```
 
-## Built with
+## Scripts
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+- `npm run dev` — serveur de développement
+- `npm run build` — build de production
+- `npm run preview` — prévisualisation du build
+- `npm run lint` — ESLint
+- `npm run format` — Prettier

@@ -60,12 +60,19 @@ export function ScrollPath({ className = "" }: { className?: string }) {
       aria-hidden="true"
       className={`pointer-events-none absolute ${className}`}
     >
-      {/* dotted track */}
+      {/* Faint solid track, not dashed — a dashed pattern read as "disabled"
+       * for whichever rows the scrub hadn't reached yet on a long mobile
+       * list (WhyUs' 8 stacked points in particular), since the scrub
+       * distance scales with the rail's own height: it can sit at a
+       * visible partial fill for a good stretch of scroll on a tall single
+       * column, even though every row's own text and dot are already
+       * fully rendered. A faint-to-vivid solid line reads as "progress,"
+       * not "half of this content isn't ready yet." */}
       <div
         className="absolute inset-0 w-px"
         style={{
-          backgroundImage:
-            "repeating-linear-gradient(to bottom, color-mix(in oklab, var(--color-foreground) 26%, transparent) 0 2px, transparent 2px 8px)",
+          backgroundColor:
+            "color-mix(in oklab, var(--color-foreground) 14%, transparent)",
         }}
       />
       {/* progress fill */}

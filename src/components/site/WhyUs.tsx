@@ -1,13 +1,6 @@
-import { whyUs } from "@/content/home";
+import { useHomeContent } from "@/content/home";
 import { useScrollReveal } from "@/lib/motion";
 import { ScrollPath } from "@/components/site/sourcing/ScrollPath";
-
-const clientColumn = whyUs.columns[0]!;
-const consultantColumn = whyUs.columns[1]!;
-const rows = clientColumn.points.map((client, i) => ({
-  client,
-  consultant: consultantColumn.points[i]!,
-}));
 
 /** Dot marker on the rail, matching sourcing/Formulas.tsx exactly. */
 function RailDot({ className = "" }: { className?: string }) {
@@ -15,6 +8,13 @@ function RailDot({ className = "" }: { className?: string }) {
 }
 
 export function WhyUs() {
+  const { whyUs } = useHomeContent();
+  const clientColumn = whyUs.columns[0]!;
+  const consultantColumn = whyUs.columns[1]!;
+  const rows = clientColumn.points.map((client, i) => ({
+    client,
+    consultant: consultantColumn.points[i]!,
+  }));
   const desktopRef = useScrollReveal<HTMLDivElement>({
     stagger: "[data-why-row]",
     variant: "rows",
@@ -73,7 +73,12 @@ export function WhyUs() {
             claim is for which audience) — one continuous rail runs
             through both groups. */}
         <div ref={mobileRef} className="relative mt-12 pl-12 md:hidden">
-          <ScrollPath className="left-[0.9375rem] top-3 bottom-6" />
+          {/* left-[4.5px] centres the 1px rail on the dots' own centre
+              (dots sit at the wrapper's left edge + 5px, via each row's
+              `-left-12` clawing back the wrapper's `pl-12` — measured with
+              getBoundingClientRect, not eyeballed: the rail previously
+              sat at 15px and visibly missed the dots by ~10.5px). */}
+          <ScrollPath className="left-[4.5px] top-3 bottom-6" />
           {whyUs.columns.map((col) => (
             <div key={col.label}>
               <p className="display-4 mb-2 mt-10 text-foreground first:mt-0">

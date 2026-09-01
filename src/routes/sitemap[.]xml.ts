@@ -25,8 +25,11 @@ const entries: SitemapEntry[] = [
     changefreq: "monthly",
     priority: "0.8",
   },
-  { path: "/cybersecurite/grc", changefreq: "monthly", priority: "0.8" },
-  { path: "/conseil-it-strategique", changefreq: "monthly", priority: "0.9" },
+  {
+    path: "/cybersecurite/gouvernance-conseil",
+    changefreq: "monthly",
+    priority: "0.9",
+  },
   { path: "/faq", changefreq: "monthly", priority: "0.6" },
   { path: "/mentions-legales", changefreq: "yearly", priority: "0.2" },
   {

@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { services, servicesIntro } from "@/content/home";
+import { useHomeContent } from "@/content/home";
 import { useScrollReveal } from "@/lib/motion";
 
 export function Services() {
+  const { services, servicesIntro } = useHomeContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-service-row]",
     variant: "rows",

@@ -1,16 +1,5 @@
-export const grcHero = {
-  breadcrumb: "GRC : Gouvernance, Risque, Conformité",
-  eyebrow: "Pôle Cybersécurité",
-  titleLead: "GRC : transformer une obligation réglementaire",
-  titleAccent: "en plan d'action",
-
-  pull: "NIS2, ISO 27001, RGPD : trois cadres, trois vocabulaires différents, et souvent la même question de votre part « Qu'est-ce que je dois faire, et par où je commence ? »",
-  paragraphs: [
-    "La GRC (Gouvernance, Risque, Conformité), c'est exactement ça : transformer un texte réglementaire en règles internes claires, en priorités hiérarchisées, et en actions que vos équipes peuvent réellement mettre en œuvre.",
-    "Pas de documentation empilée pour cocher une case.",
-  ],
-  cta: "Faire le point sur vos obligations",
-};
+import { createLocaleContent } from "@/lib/i18n";
+import * as en from "./grc.en";
 
 export const grcPillars = {
   eyebrow: "Les fondamentaux",
@@ -56,53 +45,7 @@ export const nis2Section = {
   role: "Notre rôle : vous aider à déterminer si vous entrez dans le périmètre NIS2, puis à structurer une feuille de route sur la base du ReCyF plutôt que d'attendre la promulgation définitive pour commencer à agir.",
 };
 
-export const scaleSection = {
-  eyebrow: "Proportionnalité",
-  title: "Une approche qui s'ajuste à votre taille",
-  paragraphs: [
-    "L'erreur la plus fréquente est d'appliquer à une PME de 30 personnes le niveau de formalisme conçu pour un grand groupe. Les 152 mesures du ReCyF, par exemple, ne s'appliquent pas toutes de la même façon selon la maturité et la taille de votre structure, c'est justement l'objet du travail de priorisation.",
-    "Nous structurons une feuille de route proportionnée : ce qui doit être traité en premier parce que le risque est réel et l'obligation immédiate, ce qui peut attendre, et ce qui ne vous concerne probablement pas du tout.",
-  ],
-  buckets: [
-    {
-      label: "À traiter en premier",
-      note: "Risque réel, obligation immédiate",
-      weight: 100,
-    },
-    { label: "Peut attendre", note: "Important, non urgent", weight: 60 },
-    {
-      label: "Probablement hors périmètre",
-      note: "Ne vous concerne pas",
-      weight: 22,
-    },
-  ],
-};
-
-export const processSection = {
-  eyebrow: "Méthode",
-  title: "Comment ça se passe",
-  steps: [
-    {
-      title: "Diagnostic",
-      body: "On évalue votre situation actuelle par rapport aux cadres qui s'appliquent réellement à vous, pas à tous les cadres existants par précaution.",
-    },
-    {
-      title: "Priorisation",
-      body: "On identifie ce qui est urgent, ce qui est important mais non urgent, et ce qui est secondaire, en tenant compte de votre budget et de vos équipes.",
-    },
-    {
-      title: "Mise en œuvre",
-      body: "Politique de sécurité, procédures, formalisation des responsabilités : on rédige ce qui doit l'être, à un niveau que vos équipes peuvent réellement s'approprier.",
-    },
-    {
-      title: "Suivi dans la durée",
-      body: "La réglementation évolue (NIS2 en est l'exemple le plus actuel), et une feuille de route figée devient vite obsolète. On reste dans la boucle pour l'ajuster.",
-    },
-  ],
-};
-
-export const grcCta = {
-  title: "Vous ne savez pas par où commencer ?",
-  body: "C'est le point de départ le plus courant. Un échange suffit souvent à clarifier ce qui s'applique réellement à vous, et ce qui peut attendre.",
-  cta: "Faire le point sur vos obligations",
-};
+export const useGrcContent = createLocaleContent(
+  { grcPillars, nis2Section },
+  en,
+);

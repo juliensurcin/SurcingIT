@@ -1,34 +1,16 @@
 import { Link } from "@tanstack/react-router";
-import { brand, contact } from "@/content/home";
+import { brand, useHomeContent } from "@/content/home";
+import { useUiContent } from "@/content/ui";
 import { useScrollReveal } from "@/lib/motion";
 import { Wordmark } from "./Wordmark";
 
-const meta = [
-  {
-    heading: "Sections",
-    items: [
-      { label: "Services", href: "#services" },
-      { label: "Pourquoi nous", href: "#pourquoi" },
-      { label: "Consultants", href: "#consultants" },
-      { label: "Notre ADN", href: "#adn" },
-    ],
-  },
-  {
-    heading: "Expertises",
-    items: [
-      { label: "Sécurité managée", href: "/cybersecurite/securite-managee" },
-      {
-        label: "Test d'intrusion",
-        href: "/cybersecurite/test-intrusion-audit",
-      },
-      { label: "GRC & conformité", href: "/cybersecurite/grc" },
-      { label: "Conseil IT Stratégique", href: "/conseil-it-strategique" },
-      { label: "Sourcing & Recrutement IT", href: "/sourcing-recrutement-it" },
-    ],
-  },
-];
-
 export function ContactFooter() {
+  const { contact } = useHomeContent();
+  const { footer } = useUiContent();
+  const meta = [
+    { heading: footer.sectionsHeading, items: footer.sectionsLinks },
+    { heading: footer.expertiseHeading, items: footer.expertiseLinks },
+  ];
   const ref = useScrollReveal<HTMLDivElement>({ variant: "block" });
 
   return (
@@ -52,7 +34,7 @@ export function ContactFooter() {
               </a>
             </div>
 
-            <div className="grid gap-10 sm:grid-cols-2 lg:gap-16">
+            <div className="grid gap-10 sm:grid-cols-2 lg:gap-16 lg:pt-[42px]">
               {meta.map((group) => (
                 <nav key={group.heading} aria-label={group.heading}>
                   <p className="display-4 border-b border-background/15 pb-3 text-background/70">
@@ -85,8 +67,7 @@ export function ContactFooter() {
           </div>
 
           <p className="mt-16 max-w-md text-[0.875rem] leading-relaxed text-background/50">
-            {contact.cta}. Nous répondons sous 48 h, en direct, sans formulaire
-            intermédiaire.
+            {contact.cta}. {footer.responseNote}
           </p>
         </div>
       </section>
@@ -99,23 +80,23 @@ export function ContactFooter() {
               to="/faq"
               className="link-underline transition-colors hover:text-foreground"
             >
-              FAQ
+              {footer.faq}
             </Link>
             <Link
               to="/mentions-legales"
               className="link-underline transition-colors hover:text-foreground"
             >
-              Mentions légales
+              {footer.legalNotice}
             </Link>
             <Link
               to="/politique-de-confidentialite"
               className="link-underline transition-colors hover:text-foreground"
             >
-              Politique de confidentialité
+              {footer.privacyPolicy}
             </Link>
             <p>
-              © {new Date().getFullYear()} {brand.name} · ESN cybersécurité
-              &amp; sourcing IT
+              © {new Date().getFullYear()} {brand.name} ·{" "}
+              {footer.copyrightTagline}
             </p>
           </div>
         </div>

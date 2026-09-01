@@ -1,11 +1,17 @@
 import { lazy, Suspense } from "react";
 import { ClientOnly } from "@tanstack/react-router";
-import { useIsCompact, usePrefersReducedMotion, useWebglSupport } from "@/lib/motion";
+import {
+  useIsCompact,
+  usePrefersReducedMotion,
+  useWebglSupport,
+} from "@/lib/motion";
+import { useUiContent } from "@/content/ui";
 
 const NetworkScene = lazy(() => import("./NetworkScene"));
 
 /** Static frame shown when WebGL is unavailable. Same node/link grammar. */
 function StaticMesh() {
+  const { meshLabel } = useUiContent();
   const nodes: [number, number][] = [
     [20, 30],
     [50, 14],
@@ -35,7 +41,7 @@ function StaticMesh() {
       preserveAspectRatio="xMidYMid meet"
       className="h-full w-full"
       role="img"
-      aria-label="Représentation d'un réseau supervisé : nœuds reliés entre eux"
+      aria-label={meshLabel}
     >
       {links.map(([a, b], i) => (
         <line

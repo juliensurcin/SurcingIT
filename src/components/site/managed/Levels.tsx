@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { levelsSection } from "@/content/securite-managee";
+import { useManagedContent } from "@/content/securite-managee";
 import { useScrollReveal } from "@/lib/motion";
 
 /**
@@ -12,6 +12,7 @@ import { useScrollReveal } from "@/lib/motion";
  * smooth height reveal. No floating diagram — the content is the interaction.
  */
 export function Levels() {
+  const { levelsSection } = useManagedContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-level]",
     variant: "rows",

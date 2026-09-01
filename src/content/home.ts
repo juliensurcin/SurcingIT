@@ -1,13 +1,18 @@
+import { createLocaleContent } from "@/lib/i18n";
+import * as en from "./home.en";
+
 export const brand = {
   name: "SurcingIT",
   email: "contact@surcingit.fr",
 };
 
 export const hero = {
-  title: "Une ESN hybride, orientée terrain",
-  body: "SurcingIT est une ESN spécialisée en cybersécurité et en sourcing de talents IT. Au-delà de la sécurisation de vos systèmes, nous qualifions nos consultants et les accompagnons à chaque étape de leur carrière.",
+  title: "Une société de services hybride, orientée terrain",
+  body: "SurcingIT est une société de services spécialisée en IT, avec une expertise forte en cybersécurité, qui positionne ses consultants au sein des équipes de ses clients. Au-delà de la sécurisation de vos systèmes, nous qualifions nos consultants et les accompagnons à chaque étape de leur carrière.",
   ctaPrimary: "Prendre rendez-vous",
   ctaSecondary: "Nos services",
+  noAvailability:
+    "Pas de disponibilité tout de suite ? Écrivez-nous directement à",
 };
 
 /** Three facts under the hero: short, checkable, no marketing adjectives. */
@@ -29,50 +34,35 @@ export const navServices = [
     title: "Sourcing & Recrutement IT",
     tagline: "Des profils tech validés par des ingénieurs",
     href: "/sourcing-recrutement-it",
-    children: [
-      {
-        title: "Cabinet de Recrutement",
-        tagline: "Recrutement direct de profils tech qualifiés",
-        href: "/sourcing-recrutement-it",
-      },
-      {
-        title: "Consultants",
-        tagline: "Accompagnement, statuts et carrière",
-        href: "/sourcing-recrutement-it#consultants",
-      },
-    ] as { title: string; tagline: string; href: string }[],
+    children: [] as { title: string; tagline: string; href: string }[],
   },
   {
-    title: "Pôle Cybersécurité",
-    /** Shorter label for the nav trigger itself; the full name stays
-     * everywhere else (page hero, breadcrumbs). */
-    navLabel: "Cybersécurité",
+    title: "Cybersécurité",
     tagline: "Protection, tests et conformité",
     href: "/cybersecurite",
     children: [
       {
-        title: "Sécurité Managée",
+        title: "Notre expertise cyber",
+        tagline: "Vue d'ensemble des trois expertises",
+        href: "/cybersecurite",
+      },
+      {
+        title: "Supervision & Protection",
         tagline: "Protéger en continu (SIEM, EPP, EDR, XDR, MDR, SOC)",
         href: "/cybersecurite/securite-managee",
       },
       {
-        title: "Test d'intrusion & Audit",
+        title: "Pentest & Audit",
         tagline: "Tester ponctuellement (pentest, Red Team, audits)",
         href: "/cybersecurite/test-intrusion-audit",
       },
       {
-        title: "GRC : Gouvernance, Risque, Conformité",
+        title: "Gouvernance, Risque & Conseil",
         tagline:
-          "Structurer et sécuriser dans la durée (NIS2, ISO 27001, RGPD)",
-        href: "/cybersecurite/grc",
+          "GRC et pilotage stratégique réunis (NIS2, ISO 27001, RGPD, CISO as a Service)",
+        href: "/cybersecurite/gouvernance-conseil",
       },
     ],
-  },
-  {
-    title: "Conseil IT Stratégique",
-    tagline: "CISO as a Service et conseil ponctuel",
-    href: "/conseil-it-strategique",
-    children: [],
   },
 ];
 
@@ -90,7 +80,7 @@ export const services = [
     title: "Sourcing & Recrutement IT",
     description:
       "Identification et qualification de profils tech sur tout le spectre (Dev, Cloud, Data, Ops, Cyber). Chaque candidat est validé techniquement par nos ingénieurs et évalué sur sa personnalité, son autonomie et son adéquation au poste.",
-    tags: ["Cabinet de recrutement", "Assistance technique", "Pré-embauche"],
+    tags: ["Assistance technique", "Cabinet de recrutement", "Pré-embauche"],
   },
   {
     index: "02",
@@ -99,18 +89,18 @@ export const services = [
     description:
       "Nous couvrons l'ensemble du cycle de sécurité : protection managée des postes et de l'infrastructure, tests d'intrusion, audits techniques, gouvernance SSI, conformité NIS2 / ISO 27001 / RGPD, et accompagnement SOC. Nos consultants cyber sont certifiés et interviennent sur des problématiques critiques.",
     tags: [
-      "Sécurité Managée",
+      "Supervision & Protection",
       "Test d'intrusion & Audit",
-      "GRC : Gouvernance, Risque, Conformité",
+      "Gouvernance, Risque & Conseil",
     ],
   },
   {
     index: "03",
-    href: "/conseil-it-strategique",
-    title: "Conseil IT Stratégique",
+    href: "/cybersecurite/gouvernance-conseil",
+    title: "Gouvernance, Risque & Conseil",
     description:
-      "Accompagnement sur vos projets de transformation numérique, architecture sécurisée et sélection de solutions. Disponibles en mode CISO as a Service ou conseil ponctuel.",
-    tags: ["NIS2", "ISO 27001", "RGPD", "ANSSI"],
+      "GRC et pilotage stratégique réunis : NIS2, ISO 27001, RGPD, et un RSSI externalisé disponible en mode CISO as a Service ou conseil ponctuel.",
+    tags: ["CISO as a Service", "NIS2", "ISO 27001", "RGPD"],
   },
 ];
 
@@ -175,7 +165,7 @@ export const about = {
   title: "L'humain au centre de chaque mission",
   paragraphs: [
     "Fondée par des praticiens de la cybersécurité et du conseil IT, SurcingIT incarne une vision différente de l'ESN : allier la rigueur technique d'un cabinet cyber à la chaleur d'un vrai accompagnement humain.",
-    "Chaque consultant que nous positionnons est sélectionné sur ses compétences techniques, son savoir-être, et sa capacité à s'intégrer dans votre contexte. Aucun envoi de CV à la volée, seulement des profils validés par des ingénieurs.",
+    "Chaque consultant que nous positionnons est sélectionné sur ses compétences techniques, son savoir-être et sa capacité à s'intégrer dans votre contexte. Aucun envoi de CV à la volée, seulement des profils validés par des ingénieurs.",
   ],
   pillars: [
     {
@@ -202,3 +192,18 @@ export const contact = {
   body: "Une question, un projet, un besoin de recrutement cyber ? Écrivez-nous directement.",
   cta: "Prendre rendez-vous",
 };
+
+export const useHomeContent = createLocaleContent(
+  {
+    hero,
+    heroFacts,
+    navServices,
+    servicesIntro,
+    services,
+    whyUs,
+    consultantCare,
+    about,
+    contact,
+  },
+  en,
+);

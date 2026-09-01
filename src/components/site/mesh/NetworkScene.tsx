@@ -7,7 +7,10 @@ import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
-const ACCENT = new THREE.Color("#2363eb");
+// Lavender (--color-primary as of 2026-08-18) — was the old Confident Blue
+// (#2363eb) before that redesign; kept as a real hex since three.js can't
+// read a CSS custom property directly.
+const ACCENT = new THREE.Color("#b98ee0");
 
 function useLinkGeometry(points: THREE.Vector3[], pairs: [number, number][]) {
   return useMemo(() => {
@@ -19,12 +22,23 @@ function useLinkGeometry(points: THREE.Vector3[], pairs: [number, number][]) {
       positions.push(pa.x, pa.y, pa.z, pb.x, pb.y, pb.z);
     });
     const geom = new THREE.BufferGeometry();
-    geom.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+    geom.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(positions, 3),
+    );
     return geom;
   }, [points, pairs]);
 }
 
-function Nodes({ points, size, pulse }: { points: THREE.Vector3[]; size: number; pulse: boolean }) {
+function Nodes({
+  points,
+  size,
+  pulse,
+}: {
+  points: THREE.Vector3[];
+  size: number;
+  pulse: boolean;
+}) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
@@ -81,7 +95,13 @@ function Links({
   );
 }
 
-function Parallax({ enabled, children }: { enabled: boolean; children: React.ReactNode }) {
+function Parallax({
+  enabled,
+  children,
+}: {
+  enabled: boolean;
+  children: React.ReactNode;
+}) {
   const group = useRef<THREE.Group>(null);
   const target = useRef({ x: 0, y: 0 });
   const { size } = useThree();
@@ -121,7 +141,13 @@ function heroLayout(count: number) {
     const y = 1 - (i / (count - 1)) * 2;
     const r = Math.sqrt(Math.max(0, 1 - y * y));
     const theta = golden * i;
-    points.push(new THREE.Vector3(Math.cos(theta) * r, y, Math.sin(theta) * r).multiplyScalar(2.1));
+    points.push(
+      new THREE.Vector3(
+        Math.cos(theta) * r,
+        y,
+        Math.sin(theta) * r,
+      ).multiplyScalar(2.1),
+    );
   }
   const pairs: [number, number][] = [];
   points.forEach((p, i) => {
@@ -133,8 +159,17 @@ function heroLayout(count: number) {
   return { points, pairs };
 }
 
-function HeroScene({ reduced, compact }: { reduced: boolean; compact: boolean }) {
-  const { points, pairs } = useMemo(() => heroLayout(compact ? 16 : 26), [compact]);
+function HeroScene({
+  reduced,
+  compact,
+}: {
+  reduced: boolean;
+  compact: boolean;
+}) {
+  const { points, pairs } = useMemo(
+    () => heroLayout(compact ? 16 : 26),
+    [compact],
+  );
   const spin = useRef<THREE.Group>(null);
   useFrame((_, delta) => {
     if (reduced || !spin.current) return;
@@ -151,7 +186,13 @@ function HeroScene({ reduced, compact }: { reduced: boolean; compact: boolean })
   );
 }
 
-export default function NetworkScene({ reduced, compact }: { reduced: boolean; compact: boolean }) {
+export default function NetworkScene({
+  reduced,
+  compact,
+}: {
+  reduced: boolean;
+  compact: boolean;
+}) {
   return (
     <Canvas
       dpr={compact ? 1 : [1, 1.75]}

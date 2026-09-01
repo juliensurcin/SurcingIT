@@ -1,12 +1,12 @@
-export type LegalSection = { heading: string; paragraphs: string[] };
+import { createLocaleContent } from "@/lib/i18n";
+import { address } from "./legal-address";
+import * as en from "./legal.en";
 
-const address =
-  "95 montée des Mauruches, Résidence les Tennis Bâtiment C, 06220 Vallauris, immatriculée au RCS d'Antibes sous le numéro 106271661, mail : contact@surcingit.fr.";
+export type LegalSection = { heading: string; paragraphs: string[] };
 
 const identity = `SurcingIT, Société par actions simplifiée unipersonnelle, au capital social de 1 000 euros, dont le siège social est sis ${address}`;
 
 export const legalNotice = {
-  eyebrow: "Informations légales",
   title: "Mentions légales",
   intro:
     "Identification de l'éditeur du site, de son responsable de publication et de son hébergeur.",
@@ -54,7 +54,6 @@ export const legalNotice = {
 };
 
 export const privacyPolicy = {
-  eyebrow: "Confidentialité",
   title: "Politique de confidentialité",
   intro:
     "Ce site est une vitrine statique : aucune collecte de données, aucun cookie, aucune mesure d'audience.",
@@ -97,3 +96,8 @@ export const privacyPolicy = {
     },
   ] satisfies LegalSection[],
 };
+
+export const useLegalContent = createLocaleContent(
+  { legalNotice, privacyPolicy },
+  en,
+);

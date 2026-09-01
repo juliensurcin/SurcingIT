@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
-import { brand, hero, navServices } from "@/content/home";
-import { useScrolled } from "@/lib/motion";
+import { brand, useHomeContent } from "@/content/home";
+import { useUiContent } from "@/content/ui";
+import { usePrefersReducedMotion, useScrolled } from "@/lib/motion";
 import { Wordmark } from "./Wordmark";
-
-const links = [{ label: "À propos", href: "/#adn" }];
+import { LanguageToggle } from "./LanguageToggle";
 
 const spring = {
   type: "spring" as const,
@@ -82,7 +82,11 @@ function ServiceDropdown({
 }
 
 export function Nav() {
-  const scrolled = useScrolled(12);
+  const { hero, navServices } = useHomeContent();
+  const { nav: navUi } = useUiContent();
+  const links = [{ label: navUi.about, href: "/#adn" }];
+  const scrolled = useScrolled(24);
+  const reduced = usePrefersReducedMotion();
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileOpenKey, setMobileOpenKey] = useState<string | null>(null);
@@ -130,118 +134,148 @@ export function Nav() {
   };
 
   return (
-    <header
-      className={`sticky top-0 z-50 bg-background/90 backdrop-blur transition-shadow duration-300 ${
-        scrolled ? "border-b border-border" : "border-b border-transparent"
-      }`}
-    >
-      <div className="mx-auto grid h-14 max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-6 px-6 lg:px-10">
-        <div className="flex min-w-0 items-center gap-10">
-          <Link to="/" className="text-[0.95rem] text-foreground">
-            <Wordmark />
-          </Link>
-          <nav aria-label="Navigation principale" className="hidden md:block">
-            <ul className="flex items-center gap-5 lg:gap-7">
-              {navServices.map((card) => {
-                const label = card.navLabel ?? card.title;
-                if (card.children.length === 0) {
+    <header className="sticky top-0 z-50">
+      {/* Flat and full-bleed at the top of the page; once scrolled, shrinks
+          into a floating rounded capsule with a visible primary-colour
+          border and margin on every side — same treatment on every
+          viewport (mobile included). `maxWidth` uses CSS `min()` against
+          `calc(100% - 24px)` rather than a fixed px-per-breakpoint value,
+          so the exact same rule produces a ~12px gutter on a phone and a
+          capped, centred capsule on desktop without separate branching. */}
+      <div
+        className={`mx-auto border backdrop-blur ${
+          reduced
+            ? ""
+            : "transition-[max-width,margin-top,border-radius,border-color,box-shadow,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        } ${scrolled ? "bg-background/95" : "bg-background/90"}`}
+        style={{
+          maxWidth: scrolled ? "min(1120px, calc(100% - 24px))" : "1400px",
+          marginTop: scrolled ? 12 : 0,
+          borderRadius: scrolled ? 20 : 0,
+          borderStyle: "solid",
+          borderColor: scrolled ? "var(--color-primary)" : "transparent",
+          boxShadow: scrolled
+            ? "0 24px 60px -30px rgb(15 23 42 / 0.25)"
+            : "0 0px 0px 0px rgb(15 23 42 / 0)",
+        }}
+      >
+        <div className="mx-auto grid h-14 max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-6 px-6 lg:px-10">
+          <div className="flex min-w-0 items-center gap-10">
+            <Link to="/" className="text-[0.95rem] text-foreground">
+              <Wordmark />
+            </Link>
+            <nav aria-label={navUi.primaryLabel} className="hidden md:block">
+              <ul className="flex items-center gap-5 lg:gap-7">
+                {navServices.map((card) => {
+                  const label = card.title;
+                  if (card.children.length === 0) {
+                    return (
+                      <li key={card.title}>
+                        <NavLink
+                          href={card.href}
+                          className="link-underline text-[0.8125rem] text-muted-foreground transition-colors hover:text-foreground"
+                        >
+                          {label}
+                        </NavLink>
+                      </li>
+                    );
+                  }
+                  const isOpen = openKey === card.title;
                   return (
-                    <li key={card.title}>
-                      <NavLink
-                        href={card.href}
-                        className="link-underline text-[0.8125rem] text-muted-foreground transition-colors hover:text-foreground"
+                    <li
+                      key={card.title}
+                      className="relative"
+                      onMouseEnter={() => openNow(card.title)}
+                      onMouseLeave={closeSoon}
+                    >
+                      <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        onFocus={() => openNow(card.title)}
+                        onClick={() =>
+                          setOpenKey((k) =>
+                            k === card.title ? null : card.title,
+                          )
+                        }
+                        className="flex cursor-pointer items-center gap-1.5 text-[0.8125rem] text-muted-foreground transition-colors hover:text-foreground data-[state=open]:text-foreground"
+                        data-state={isOpen ? "open" : "closed"}
                       >
                         {label}
-                      </NavLink>
+                        <ChevronDown
+                          className={`size-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+
+                      <AnimatePresence>
+                        {isOpen ? (
+                          <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={spring}
+                            // No onMouseEnter/onMouseLeave here on purpose: this
+                            // panel is a DOM descendant of the <li>, so hovering
+                            // it already keeps the <li>'s own handlers "entered"
+                            // — a duplicate pair here used to fire its own
+                            // closeSoon() the instant the cursor's hit-test
+                            // crossed from this panel onto the trigger's
+                            // ChevronDown icon (a sibling, not a descendant of
+                            // this div). Because the chevron rotates via CSS
+                            // transform, its hit-testable box balloons mid-
+                            // rotation and the boundary between the two
+                            // elements flickers for a few frames even with a
+                            // perfectly stationary mouse, which was enough to
+                            // schedule a stray close — closing this panel,
+                            // which Chromium's hover recompute on unmount then
+                            // registered as a fresh enter on the trigger,
+                            // reopening it, forever. The <li>'s listeners alone
+                            // are sufficient and don't have this failure mode.
+                            className="absolute left-0 top-[calc(100%-8px)] pt-5"
+                          >
+                            <ServiceDropdown
+                              items={card.children}
+                              onNavigate={() => setOpenKey(null)}
+                            />
+                          </motion.div>
+                        ) : null}
+                      </AnimatePresence>
                     </li>
                   );
-                }
-                const isOpen = openKey === card.title;
-                return (
-                  <li
-                    key={card.title}
-                    className="relative"
-                    onMouseEnter={() => openNow(card.title)}
-                    onMouseLeave={closeSoon}
-                  >
-                    <button
-                      type="button"
-                      aria-expanded={isOpen}
-                      onFocus={() => openNow(card.title)}
-                      onClick={() =>
-                        setOpenKey((k) =>
-                          k === card.title ? null : card.title,
-                        )
-                      }
-                      className="flex items-center gap-1.5 text-[0.8125rem] text-muted-foreground transition-colors hover:text-foreground data-[state=open]:text-foreground"
-                      data-state={isOpen ? "open" : "closed"}
+                })}
+                {links.map((l) => (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      className="link-underline text-[0.8125rem] text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      {label}
-                      <ChevronDown
-                        className={`size-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-                      />
-                    </button>
-
-                    <AnimatePresence>
-                      {isOpen ? (
-                        <motion.div
-                          initial={{ opacity: 0, y: -6 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -6 }}
-                          transition={spring}
-                          onMouseEnter={() => openNow(card.title)}
-                          onMouseLeave={closeSoon}
-                          // The hoverable box starts 8px *above* the trigger's
-                          // own bottom edge (overlapping it) instead of
-                          // exactly abutting it, so a hand tremor at the
-                          // boundary can't slip through a razor-thin gap
-                          // between the two hit areas — pt-5 keeps the
-                          // *visible* panel at the same offset it was at
-                          // with the old top-full + pt-3.
-                          className="absolute left-0 top-[calc(100%-8px)] pt-5"
-                        >
-                          <ServiceDropdown
-                            items={card.children}
-                            onNavigate={() => setOpenKey(null)}
-                          />
-                        </motion.div>
-                      ) : null}
-                    </AnimatePresence>
+                      {l.label}
+                    </a>
                   </li>
-                );
-              })}
-              {links.map((l) => (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="link-underline text-[0.8125rem] text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
+                ))}
+              </ul>
+            </nav>
+          </div>
 
-        <div className="flex items-center gap-3">
-          <a
-            href={`mailto:${brand.email}?subject=Prise%20de%20rendez-vous`}
-            className="press hidden border border-border-strong px-4 py-2 text-[0.8125rem] font-medium text-foreground hover:border-foreground hover:bg-foreground hover:text-background md:block"
-          >
-            {hero.ctaPrimary}
-          </a>
-          <button
-            id="mobile-menu-button"
-            type="button"
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
-            aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
-            onClick={() => setMobileOpen((v) => !v)}
-            className="grid h-10 w-10 place-items-center text-foreground md:hidden"
-          >
-            <BurgerIcon open={mobileOpen} />
-          </button>
+          <div className="flex items-center gap-3">
+            <LanguageToggle className="hidden md:flex" />
+            <a
+              href={`mailto:${brand.email}?subject=${encodeURIComponent(hero.ctaPrimary)}`}
+              className="press hidden border border-border-strong px-4 py-2 text-[0.8125rem] font-medium text-foreground hover:border-foreground hover:bg-foreground hover:text-background md:block"
+            >
+              {hero.ctaPrimary}
+            </a>
+            <button
+              id="mobile-menu-button"
+              type="button"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
+              aria-label={mobileOpen ? navUi.closeMenu : navUi.openMenu}
+              onClick={() => setMobileOpen((v) => !v)}
+              className="grid h-10 w-10 cursor-pointer place-items-center text-foreground md:hidden"
+            >
+              <BurgerIcon open={mobileOpen} />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -257,10 +291,16 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed left-0 top-14 z-40 h-[calc(100dvh-3.5rem)] w-full bg-background md:hidden"
+            style={{
+              top: scrolled ? "4.25rem" : "3.5rem",
+              height: scrolled
+                ? "calc(100dvh - 4.25rem)"
+                : "calc(100dvh - 3.5rem)",
+            }}
+            className="fixed left-0 z-40 w-full bg-background md:hidden"
           >
             <motion.nav
-              aria-label="Navigation mobile"
+              aria-label={navUi.mobileLabel}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 16 }}
@@ -268,8 +308,9 @@ export function Nav() {
               className="flex h-full flex-col justify-between overflow-y-auto px-6 py-8"
             >
               <div className="space-y-2">
+                <LanguageToggle className="mb-4" />
                 {navServices.map((card) => {
-                  const label = card.navLabel ?? card.title;
+                  const label = card.title;
                   if (card.children.length === 0) {
                     return (
                       <NavLink
@@ -293,7 +334,7 @@ export function Nav() {
                             k === card.title ? null : card.title,
                           )
                         }
-                        className="flex w-full items-center justify-between py-5 text-left"
+                        className="flex w-full cursor-pointer items-center justify-between py-5 text-left"
                       >
                         <span className="display-2 text-foreground">
                           {label}
@@ -347,7 +388,7 @@ export function Nav() {
               </div>
 
               <a
-                href={`mailto:${brand.email}?subject=Prise%20de%20rendez-vous`}
+                href={`mailto:${brand.email}?subject=${encodeURIComponent(hero.ctaPrimary)}`}
                 onClick={handleMobileClose}
                 className="press mt-8 bg-primary px-6 py-4 text-center text-[0.9375rem] font-medium text-primary-foreground"
               >

@@ -1,8 +1,9 @@
-import { partnersSection, partnerLogos } from "@/content/securite-managee";
+import { useManagedContent } from "@/content/securite-managee";
 import { LogoCloud } from "@/components/ui/logo-cloud";
 import { useScrollReveal } from "@/lib/motion";
 
 export function Partners() {
+  const { partnersSection, partnerLogos } = useManagedContent();
   const ref = useScrollReveal<HTMLDivElement>({ variant: "block" });
 
   return (

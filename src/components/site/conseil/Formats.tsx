@@ -1,8 +1,9 @@
-import { conseilFormats } from "@/content/conseil";
+import { useConseilContent } from "@/content/conseil";
 import { useScrollReveal } from "@/lib/motion";
 
 /** Diptych: recurring engagement (light) vs one-off engagement (inverted). */
 export function Formats() {
+  const { conseilFormats } = useConseilContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-format]",
     variant: "rows",
@@ -62,7 +63,7 @@ export function Formats() {
                       dark ? "text-background/50" : "text-muted-foreground"
                     }`}
                   >
-                    Pour qui
+                    {conseilFormats.forWhoLabel}
                   </p>
                   <p
                     className={`small-copy measure mt-3 ${

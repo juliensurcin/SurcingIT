@@ -1,3 +1,6 @@
+import { createLocaleContent } from "@/lib/i18n";
+import * as en from "./faq.en";
+
 export type FaqItem = { q: string; a: string };
 export type FaqCategory = { title: string; items: FaqItem[] };
 
@@ -5,6 +8,11 @@ export const faqPage = {
   title: "Questions fréquentes",
   intro:
     "Les questions qu'on nous pose le plus souvent, classées par domaine d'intervention.",
+  categoriesLabel: "Catégories",
+  mailtoSubject: "Question",
+  closingTitle: "Une question qu'on n'a pas couverte ici ?",
+  closingBody: "Écrivez-nous directement, nous vous répondons en personne.",
+  closingCta: "Contactez-nous",
 };
 
 export const faqCategories: FaqCategory[] = [
@@ -137,7 +145,7 @@ export const faqCategories: FaqCategory[] = [
     ],
   },
   {
-    title: "GRC : Gouvernance, Risque, Conformité",
+    title: "Gouvernance, Risque & Conseil",
     items: [
       {
         q: "C'est quoi la GRC, en une phrase ?",
@@ -150,10 +158,6 @@ export const faqCategories: FaqCategory[] = [
       {
         q: "Ma certification ISO 27001:2013 est-elle encore valable ?",
         a: "Non. Le délai de transition vers la version 2022 a expiré le 31 octobre 2025. Toute certification, nouvelle ou renouvelée, doit désormais se faire sur la base de la version 2022, dont l'Annexe A a été restructurée.",
-      },
-      {
-        q: "On n'a pas de RSSI en interne, est-ce bloquant pour avancer sur la GRC ?",
-        a: "Non. C'est même une situation fréquente. Voir notre page Conseil IT Stratégique pour le format d'accompagnement (RSSI externalisé ou conseil ponctuel) qui porte la mise en œuvre de ce qui est défini ici.",
       },
       {
         q: "Qui est concerné par NIS2 ?",
@@ -171,11 +175,10 @@ export const faqCategories: FaqCategory[] = [
         q: "Faut-il être certifié ISO 27001 pour être conforme NIS2 ?",
         a: "Non, la certification n'est pas exigée par NIS2. Mais un système de management de la sécurité aligné sur ISO 27001:2022 couvre une grande partie des attentes du ReCyF, ce qui évite de mener deux chantiers en parallèle. Beaucoup d'organisations utilisent ISO 27001 comme colonne vertébrale, puis complètent avec les exigences propres à NIS2, notamment la notification d'incidents.",
       },
-    ],
-  },
-  {
-    title: "Conseil IT Stratégique",
-    items: [
+      {
+        q: "On n'a pas de RSSI en interne, est-ce bloquant pour avancer sur la GRC ?",
+        a: "Non. C'est même une situation fréquente : c'est précisément le rôle du CISO as a Service ou du conseil ponctuel, qui portent la mise en œuvre de ce qui est défini ici.",
+      },
       {
         q: "C'est quoi un RSSI, et pourquoi en aurais-je besoin ?",
         a: "Le RSSI (ou CISO) porte la stratégie de sécurité d'une organisation : règles, arbitrage des priorités, gestion des risques, réponse aux exigences réglementaires et aux questionnaires clients.",
@@ -202,8 +205,13 @@ export const faqCategories: FaqCategory[] = [
       },
       {
         q: "Le RSSI externalisé peut-il porter notre conformité NIS2 ou ISO 27001 ?",
-        a: "Oui, c'est un des cas d'usage les plus fréquents : le RSSI externalisé pilote la mise en conformité, arbitre les priorités, prépare les instances de gouvernance et fait le lien avec les auditeurs et vos clients. Le travail de fond sur les référentiels est mené avec notre pôle Gouvernance, Risque et Conformité.",
+        a: "Oui, c'est un des cas d'usage les plus fréquents : le RSSI externalisé pilote la mise en conformité, arbitre les priorités, prépare les instances de gouvernance et fait le lien avec les auditeurs et vos clients. Le travail de fond sur les référentiels est mené avec notre pôle Gouvernance, Risque & Conseil.",
       },
     ],
   },
 ];
+
+export const useFaqContent = createLocaleContent(
+  { faqPage, faqCategories },
+  en,
+);

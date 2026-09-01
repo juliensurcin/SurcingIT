@@ -1,7 +1,8 @@
-import { grcPillars } from "@/content/grc";
+import { useGrcContent } from "@/content/grc";
 import { useScrollReveal } from "@/lib/motion";
 
 export function Pillars() {
+  const { grcPillars } = useGrcContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-pillar]",
     variant: "rows",

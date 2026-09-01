@@ -45,7 +45,6 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-consultant: var(--consultant);
   --color-success: var(--success);
   --color-warn: var(--warn);
   --color-destructive: var(--destructive);
@@ -81,11 +80,12 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.208 0.04 265.8);
 
-  /* #2363eb: the one accent, AA on white (5.18:1) */
-  --primary: oklch(0.546 0.216 262.6);
-  --primary-foreground: oklch(1 0 0);
-  /* #1a4fc4 */
-  --primary-active: oklch(0.471 0.191 262.9);
+  /* #b98ee0: the one accent (Lavender). Text on --primary is ink, not
+     white — this lighter step doesn't clear AA as white-on-fill. */
+  --primary: oklch(0.718 0.124 307.6);
+  --primary-foreground: var(--foreground);
+  /* #9a69c8 */
+  --primary-active: oklch(0.611 0.147 306.4);
 
   --secondary: oklch(0.96 0.005 258.3);
   --secondary-foreground: oklch(0.208 0.04 265.8);
@@ -96,8 +96,6 @@
   --accent: oklch(0.96 0.005 258.3);
   --accent-foreground: oklch(0.208 0.04 265.8);
 
-  /* #7c3aed */
-  --consultant: oklch(0.541 0.247 293);
   /* #16a34a */
   --success: oklch(0.627 0.17 149.2);
   /* #d97706 */
@@ -110,16 +108,16 @@
   --border: oklch(0.208 0.04 265.8 / 8%);
   --border-strong: oklch(0.208 0.04 265.8 / 18%);
   --input: oklch(0.208 0.04 265.8 / 14%);
-  --ring: oklch(0.546 0.216 262.6);
+  --ring: oklch(0.718 0.124 307.6);
 
   --sidebar: oklch(0.979 0.003 264.5);
   --sidebar-foreground: oklch(0.208 0.04 265.8);
-  --sidebar-primary: oklch(0.546 0.216 262.6);
-  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.718 0.124 307.6);
+  --sidebar-primary-foreground: oklch(0.208 0.04 265.8);
   --sidebar-accent: oklch(0.96 0.005 258.3);
   --sidebar-accent-foreground: oklch(0.208 0.04 265.8);
   --sidebar-border: oklch(0.208 0.04 265.8 / 8%);
-  --sidebar-ring: oklch(0.546 0.216 262.6);
+  --sidebar-ring: oklch(0.718 0.124 307.6);
 }
 
 @layer base {
@@ -244,8 +242,12 @@
   }
 }
 
-/* Solid CTA with a real 1px press state. */
+/* Solid CTA with a real 1px press state. Deliberate, scoped exception to
+ * the system's 0px-radius rule (2026-08-29): buttons alone get a soft
+ * corner for a less "dated/square" feel; every other bordered element
+ * (panels, callouts, cards) stays sharp per DESIGN.md. */
 @utility press {
+  border-radius: 12px;
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,

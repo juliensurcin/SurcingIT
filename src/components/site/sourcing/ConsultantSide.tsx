@@ -1,4 +1,3 @@
-import teamPhoto from "@/assets/team-catamaran.jpg";
 import { consultantSide } from "@/content/sourcing";
 import { useScrollReveal } from "@/lib/motion";
 
@@ -29,27 +28,6 @@ export function ConsultantSide() {
               <p className="small-copy measure text-background/70">{b.body}</p>
             </article>
           ))}
-        </div>
-
-        <div className="mt-16 grid gap-10 md:mt-20 lg:grid-cols-[minmax(0,40fr)_minmax(0,60fr)] lg:items-start lg:gap-20">
-          <div>
-            <h3 className="display-3 text-background">
-              {consultantSide.beyond.title}
-            </h3>
-            <p className="small-copy measure mt-5 text-background/70">
-              {consultantSide.beyond.body}
-            </p>
-          </div>
-          <figure className="overflow-hidden">
-            <img
-              src={teamPhoto}
-              alt="Consultants SurcingIT réunis lors d'une sortie en catamaran sur la Méditerranée"
-              width={1600}
-              height={1008}
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-          </figure>
         </div>
       </div>
     </section>

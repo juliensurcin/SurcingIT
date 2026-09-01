@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/site/LegalPage";
-import { legalNotice } from "@/content/legal";
 
 const title = "Mentions légales | SurcingIT";
 const description =
@@ -19,5 +18,5 @@ export const Route = createFileRoute("/mentions-legales")({
     ],
     links: [{ rel: "canonical", href: "/mentions-legales" }],
   }),
-  component: () => <LegalPage {...legalNotice} />,
+  component: () => <LegalPage variant="notice" />,
 });

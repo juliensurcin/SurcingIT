@@ -23,17 +23,42 @@ export function InfiniteSlider({
   className,
 }: InfiniteSliderProps) {
   const [currentDuration, setCurrentDuration] = useState(duration);
-  const [ref, { width, height }] = useMeasure();
+  const [containerRef, { width: containerWidth, height: containerHeight }] =
+    useMeasure();
+  const [copyRef, { width: copyWidth, height: copyHeight }] = useMeasure();
   const translation = useMotionValue(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [key, setKey] = useState(0);
 
+  const size = direction === "horizontal" ? copyWidth : copyHeight;
+  const viewport =
+    direction === "horizontal" ? containerWidth : containerHeight;
+
+  // How many times to repeat `children` in the track. Two copies only
+  // loops seamlessly when a single copy is already at least as wide as
+  // the visible container — with a short content set (e.g. a handful of
+  // partner logos) in a wide section, a single copy is much narrower than
+  // the container, so translating through the loop runs out of rendered
+  // content before reaching the reset point: the track's second copy
+  // scrolls fully past the container's right edge with nothing behind it,
+  // exposing the section's background. Rendering enough copies to cover
+  // the container twice over (with a floor of 2) keeps the track full at
+  // every point in the loop regardless of how narrow the content is.
+  const copies =
+    size > 0 && viewport > 0
+      ? Math.max(2, Math.ceil((viewport * 2) / (size + gap)))
+      : 2;
+
   useEffect(() => {
     let controls: ReturnType<typeof animate>;
-    const size = direction === "horizontal" ? width : height;
+    // One copy's own stride: its content width plus the trailing gap that
+    // separates it from the next copy. Translating by exactly this
+    // distance shifts the whole repeating track by one period, so
+    // whatever the next copy looked like at rest is now what the first
+    // copy looked like — seamless regardless of how many copies render.
     const contentSize = size + gap;
-    const from = reverse ? -contentSize / 2 : 0;
-    const to = reverse ? 0 : -contentSize / 2;
+    const from = reverse ? -contentSize : 0;
+    const to = reverse ? 0 : -contentSize;
 
     if (isTransitioning) {
       controls = animate(translation, [translation.get(), to], {
@@ -63,8 +88,7 @@ export function InfiniteSlider({
     key,
     translation,
     currentDuration,
-    width,
-    height,
+    size,
     gap,
     isTransitioning,
     direction,
@@ -84,8 +108,13 @@ export function InfiniteSlider({
       }
     : {};
 
+  const copyStyle: React.CSSProperties = {
+    gap: `${gap}px`,
+    flexDirection: direction === "horizontal" ? "row" : "column",
+  };
+
   return (
-    <div className={cn("overflow-hidden", className)}>
+    <div ref={containerRef} className={cn("overflow-hidden", className)}>
       <motion.div
         className="flex w-max"
         style={{
@@ -95,11 +124,16 @@ export function InfiniteSlider({
           gap: `${gap}px`,
           flexDirection: direction === "horizontal" ? "row" : "column",
         }}
-        ref={ref}
         {...hoverProps}
       >
-        {children}
-        {children}
+        <div ref={copyRef} className="flex" style={copyStyle}>
+          {children}
+        </div>
+        {Array.from({ length: Math.max(0, copies - 1) }, (_, i) => (
+          <div key={i} className="flex" style={copyStyle}>
+            {children}
+          </div>
+        ))}
       </motion.div>
     </div>
   );

@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { consultantCare } from "@/content/home";
+import { useHomeContent } from "@/content/home";
 import { useScrollReveal } from "@/lib/motion";
 
 /**
@@ -13,6 +13,7 @@ import { useScrollReveal } from "@/lib/motion";
  * diagram — the content is the interaction.
  */
 export function ConsultantCare() {
+  const { consultantCare } = useHomeContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-care-item]",
     variant: "rows",
@@ -35,13 +36,13 @@ export function ConsultantCare() {
           <Accordion
             type="single"
             collapsible
-            defaultValue={consultantCare.cards[0]!.title}
+            defaultValue="0"
             className="border-t border-border"
           >
-            {consultantCare.cards.map((c) => (
+            {consultantCare.cards.map((c, i) => (
               <AccordionItem
                 key={c.title}
-                value={c.title}
+                value={String(i)}
                 data-care-item
                 className="group border-b border-border"
               >

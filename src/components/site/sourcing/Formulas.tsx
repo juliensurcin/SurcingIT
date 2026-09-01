@@ -16,8 +16,10 @@ export function Formulas() {
         </div>
 
         <div ref={ref} className="relative mt-12 pl-12 md:mt-16 md:pl-0">
-          {/* mobile rail */}
-          <ScrollPath className="left-[0.9375rem] top-3 bottom-6 md:hidden" />
+          {/* mobile rail — left-[4.5px] centres the 1px rail on the dots'
+              own centre (see WhyUs.tsx for the measured derivation; same
+              wrapper pl-12 / dot -left-12 pattern, same ~10.5px miss). */}
+          <ScrollPath className="left-[4.5px] top-3 bottom-6 md:hidden" />
           {/* desktop centre rail */}
           <ScrollPath className="left-1/2 top-2 bottom-8 hidden md:block" />
 

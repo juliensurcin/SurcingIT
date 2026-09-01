@@ -1,17 +1,21 @@
 import { Link } from "@tanstack/react-router";
 import { brand } from "@/content/home";
-import { managedHero, managedCta } from "@/content/securite-managee";
+import { useManagedContent } from "@/content/securite-managee";
+import { useUiContent } from "@/content/ui";
 import { useScrollReveal, useSmoothScroll } from "@/lib/motion";
 import { Nav } from "@/components/site/Nav";
 import { Wordmark } from "@/components/site/Wordmark";
+import { EmailProtection } from "./EmailProtection";
+import { EndpointProtection } from "./EndpointProtection";
 import { Levels } from "./Levels";
 import { Soc } from "./Soc";
 import { Partners } from "./Partners";
 import { People } from "./People";
 
-const mailto = `mailto:${brand.email}?subject=S%C3%A9curit%C3%A9%20manag%C3%A9e`;
-
 export function ManagedPage() {
+  const { managedHero, managedCta } = useManagedContent();
+  const { breadcrumb, footer } = useUiContent();
+  const mailto = `mailto:${brand.email}?subject=${encodeURIComponent(managedHero.breadcrumb)}`;
   useSmoothScroll();
   const heroRef = useScrollReveal<HTMLDivElement>({
     stagger: "[data-line]",
@@ -26,18 +30,18 @@ export function ManagedPage() {
         <section className="bg-background">
           <div className="mx-auto max-w-[1400px] px-6 pb-14 pt-10 md:pb-16 md:pt-12 lg:px-10">
             <nav
-              aria-label="Fil d'ariane"
+              aria-label={breadcrumb.label}
               className="text-[0.8125rem] text-muted-foreground"
             >
               <Link to="/" className="link-underline hover:text-foreground">
-                Accueil
+                {breadcrumb.home}
               </Link>
               <span className="px-2 text-border-strong">/</span>
               <Link
                 to="/cybersecurite"
                 className="link-underline hover:text-foreground"
               >
-                Pôle Cybersécurité
+                {breadcrumb.cyberPole}
               </Link>
               <span className="px-2 text-border-strong">/</span>
               <span className="text-foreground">{managedHero.breadcrumb}</span>
@@ -77,6 +81,8 @@ export function ManagedPage() {
           </div>
         </section>
 
+        <EmailProtection />
+        <EndpointProtection />
         <Levels />
         <Soc />
         <Partners />
@@ -84,7 +90,7 @@ export function ManagedPage() {
 
         <section className="bg-foreground">
           <div className="mx-auto max-w-[1400px] px-6 py-16 md:py-20 lg:px-10">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)] lg:items-end lg:gap-20">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)] lg:items-center lg:gap-20">
               <div>
                 <h2 className="display-2 text-background">
                   {managedCta.title}
@@ -111,19 +117,19 @@ export function ManagedPage() {
           <Wordmark className="text-[0.95rem] text-foreground" />
           <div className="flex flex-wrap items-center gap-6 text-[0.8125rem] text-muted-foreground md:justify-end">
             <Link to="/faq" className="link-underline hover:text-foreground">
-              FAQ
+              {footer.faq}
             </Link>
             <Link
               to="/mentions-legales"
               className="link-underline hover:text-foreground"
             >
-              Mentions légales
+              {footer.legalNotice}
             </Link>
             <Link
               to="/politique-de-confidentialite"
               className="link-underline hover:text-foreground"
             >
-              Politique de confidentialité
+              {footer.privacyPolicy}
             </Link>
             <p>
               © {new Date().getFullYear()} {brand.name}

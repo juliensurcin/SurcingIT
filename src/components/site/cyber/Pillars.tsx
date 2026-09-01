@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { pillarsSection } from "@/content/cyber";
+import { ArrowRight } from "lucide-react";
+import { useCyberContent } from "@/content/cyber";
 import { useScrollReveal } from "@/lib/motion";
 
 export function Pillars() {
+  const { pillarsSection } = useCyberContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-pillar]",
     variant: "rows",
@@ -37,30 +39,16 @@ export function Pillars() {
                     <li key={t}>{t}</li>
                   ))}
                 </ul>
-                {item.title === "Sécurité Managée" && (
-                  <Link
-                    to="/cybersecurite/securite-managee"
-                    className="link-underline mt-6 inline-block text-[0.9375rem] font-medium text-primary hover:text-primary/80"
-                  >
-                    Découvrir la sécurité managée
-                  </Link>
-                )}
-                {item.title === "Test d'intrusion & Audit" && (
-                  <Link
-                    to="/cybersecurite/test-intrusion-audit"
-                    className="link-underline mt-6 inline-block text-[0.9375rem] font-medium text-primary hover:text-primary/80"
-                  >
-                    Découvrir les tests d'intrusion et audits
-                  </Link>
-                )}
-                {item.title === "GRC : Gouvernance, Risque, Conformité" && (
-                  <Link
-                    to="/cybersecurite/grc"
-                    className="link-underline mt-6 inline-block text-[0.9375rem] font-medium text-primary hover:text-primary/80"
-                  >
-                    Découvrir la gouvernance, le risque et la conformité
-                  </Link>
-                )}
+                <Link
+                  to={item.href}
+                  className="link-underline group/link mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-bold text-background/80 hover:text-background"
+                >
+                  {item.linkLabel}
+                  <ArrowRight
+                    className="size-4 shrink-0 transition-transform duration-300 group-hover/link:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </Link>
               </div>
             </article>
           ))}

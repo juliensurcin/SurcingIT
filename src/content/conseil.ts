@@ -1,14 +1,5 @@
-export const conseilHero = {
-  breadcrumb: "Conseil IT Stratégique",
-  eyebrow: "Conseil IT Stratégique",
-  titleLead: "Un RSSI à temps partagé,",
-  titleAccent: "plutôt qu'une chaise vide",
-  paragraphs: [
-    "Recruter un RSSI à plein temps, c'est un salaire, un marché tendu, et plusieurs mois de recherche. Beaucoup d'entreprises reportent la décision. En attendant, les décisions de sécurité se prennent au fil de l'eau, ou ne se prennent pas.",
-    "Le CISO as a Service, c'est la compétence quand vous en avez besoin, sans le poste à temps plein. Quelques jours par mois, un interlocuteur qui connaît votre contexte, et des arbitrages qui tiennent la route.",
-  ],
-  cta: "En discuter concrètement",
-};
+import { createLocaleContent } from "@/lib/i18n";
+import * as en from "./conseil.en";
 
 export const conseilDomains = {
   eyebrow: "Périmètre",
@@ -46,6 +37,7 @@ export const conseilDomains = {
 export const conseilFormats = {
   eyebrow: "Formats",
   title: "Deux formats, selon votre besoin",
+  forWhoLabel: "Pour qui",
   items: [
     {
       kicker: "Récurrent",
@@ -64,32 +56,7 @@ export const conseilFormats = {
   ],
 };
 
-export const conseilApproach = {
-  eyebrow: "Méthode",
-  title: "Comment ça se passe",
-  pull: "Pas de méthodologie propriétaire en douze phases avec un acronyme.",
-  steps: [
-    {
-      title: "On commence par écouter",
-      body: "Votre contexte, vos contraintes réelles, ce qui bloque, ce qui a déjà été tenté.",
-    },
-    {
-      title: "On établit un état des lieux honnête",
-      body: "Y compris quand la conclusion est « votre priorité n'est pas celle que vous pensiez ».",
-    },
-    {
-      title: "On priorise avec vous",
-      body: "Tout ne peut pas être traité en même temps, et ce n'est pas grave.",
-    },
-    {
-      title: "On reste dans la boucle",
-      body: "Une recommandation qui n'est jamais mise en œuvre ne sert à rien.",
-    },
-  ],
-};
-
-export const conseilCta = {
-  title: "Vous hésitez sur la marche à suivre ?",
-  body: "C'est souvent le meilleur moment pour en parler. Un échange, et vous saurez au moins par quoi commencer.",
-  cta: "En discuter concrètement",
-};
+export const useConseilContent = createLocaleContent(
+  { conseilDomains, conseilFormats },
+  en,
+);

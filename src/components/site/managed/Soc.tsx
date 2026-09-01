@@ -1,7 +1,8 @@
-import { socSection } from "@/content/securite-managee";
+import { useManagedContent } from "@/content/securite-managee";
 import { useScrollReveal } from "@/lib/motion";
 
 export function Soc() {
+  const { socSection } = useManagedContent();
   const ref = useScrollReveal<HTMLDListElement>({
     stagger: "[data-fact]",
     variant: "rows",
@@ -32,7 +33,7 @@ export function Soc() {
               data-fact
               className={`py-8 ${i === 0 ? "md:pr-10" : "md:px-10"}`}
             >
-              <dt className="text-3xl font-semibold tracking-tight text-primary">
+              <dt className="text-3xl font-semibold tracking-tight text-background">
                 {f.value}
               </dt>
               <dd className="small-copy mt-3 text-background/70">{f.label}</dd>

@@ -1,8 +1,9 @@
-import { about } from "@/content/home";
+import { useHomeContent } from "@/content/home";
 import { useScrollReveal } from "@/lib/motion";
 import { IconCloud } from "@/components/site/IconCloud/IconCloud";
 
 export function About() {
+  const { about } = useHomeContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-pillar]",
     variant: "rows",

@@ -1,8 +1,9 @@
-import { conseilDomains } from "@/content/conseil";
+import { useConseilContent } from "@/content/conseil";
 import { useScrollReveal } from "@/lib/motion";
 
 /** Editorial dossier: ghost numerals + hairline rows, detail always in the HTML. */
 export function Domains() {
+  const { conseilDomains } = useConseilContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-domain]",
     variant: "rows",

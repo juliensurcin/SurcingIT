@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { brand } from "@/content/home";
-import { sourcingHero, sourcingCta } from "@/content/sourcing";
+import { useSourcingContent } from "@/content/sourcing";
+import { useUiContent } from "@/content/ui";
 import { useScrollReveal, useSmoothScroll } from "@/lib/motion";
 import { Nav } from "@/components/site/Nav";
 import { Wordmark } from "@/components/site/Wordmark";
@@ -8,9 +9,10 @@ import { Process } from "./Process";
 import { Formulas } from "./Formulas";
 import { ConsultantSide } from "./ConsultantSide";
 
-const mailto = `mailto:${brand.email}?subject=Sourcing%20%26%20Recrutement%20IT`;
-
 export function SourcingPage() {
+  const { sourcingHero, sourcingCta } = useSourcingContent();
+  const { breadcrumb, footer } = useUiContent();
+  const mailto = `mailto:${brand.email}?subject=${encodeURIComponent(sourcingHero.eyebrow)}`;
   useSmoothScroll();
   const heroRef = useScrollReveal<HTMLDivElement>({
     stagger: "[data-line]",
@@ -24,16 +26,14 @@ export function SourcingPage() {
         <section className="bg-background">
           <div className="mx-auto max-w-[1400px] px-6 pb-14 pt-10 md:pb-16 md:pt-12 lg:px-10">
             <nav
-              aria-label="Fil d'ariane"
+              aria-label={breadcrumb.label}
               className="text-[0.8125rem] text-muted-foreground"
             >
               <Link to="/" className="link-underline hover:text-foreground">
-                Accueil
+                {breadcrumb.home}
               </Link>
               <span className="px-2 text-border-strong">/</span>
-              <span className="text-foreground">
-                Sourcing &amp; Recrutement IT
-              </span>
+              <span className="text-foreground">{sourcingHero.eyebrow}</span>
             </nav>
 
             <div
@@ -41,11 +41,11 @@ export function SourcingPage() {
               className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,54fr)_minmax(0,46fr)] lg:gap-24"
             >
               <h1 data-line className="display-1 text-foreground">
-                <span className="whitespace-nowrap">Recrutement IT&nbsp;:</span>{" "}
-                <span className="text-primary">
-                  des profils validés par des ingénieurs,
+                <span className="whitespace-nowrap">
+                  {sourcingHero.titleLead}
                 </span>{" "}
-                pas par des mots-clés
+                <span className="text-primary">{sourcingHero.titleAccent}</span>{" "}
+                {sourcingHero.titleTail}
               </h1>
               <div className="lg:self-end">
                 {sourcingHero.paragraphs.map((p, i) => (
@@ -75,7 +75,7 @@ export function SourcingPage() {
 
         <section className="border-t border-background/15 bg-foreground">
           <div className="mx-auto max-w-[1400px] px-6 py-16 md:py-20 lg:px-10">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)] lg:items-end lg:gap-20">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,58fr)_minmax(0,42fr)] lg:items-center lg:gap-20">
               <div>
                 <h2 className="display-2 text-background">
                   {sourcingCta.title}
@@ -102,19 +102,19 @@ export function SourcingPage() {
           <Wordmark className="text-[0.95rem] text-foreground" />
           <div className="flex flex-wrap items-center gap-6 text-[0.8125rem] text-muted-foreground md:justify-end">
             <Link to="/faq" className="link-underline hover:text-foreground">
-              FAQ
+              {footer.faq}
             </Link>
             <Link
               to="/mentions-legales"
               className="link-underline hover:text-foreground"
             >
-              Mentions légales
+              {footer.legalNotice}
             </Link>
             <Link
               to="/politique-de-confidentialite"
               className="link-underline hover:text-foreground"
             >
-              Politique de confidentialité
+              {footer.privacyPolicy}
             </Link>
             <p>
               © {new Date().getFullYear()} {brand.name}

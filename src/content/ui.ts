@@ -52,7 +52,7 @@ const fr = {
     faq: "FAQ",
     legalNotice: "Mentions légales",
     privacyPolicy: "Politique de confidentialité",
-    copyrightTagline: "ESN cybersécurité & sourcing IT",
+    copyrightTagline: "Société de services cybersécurité & sourcing IT",
     responseNote:
       "Nous répondons sous 48 h, en direct, sans formulaire intermédiaire.",
   },

@@ -113,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         {
           name: "description",
           content:
-            "ESN spécialisée en cybersécurité et en sourcing de talents IT.",
+            "Société de services spécialisée en cybersécurité et en sourcing de talents IT.",
         },
         { name: "author", content: "SurcingIT" },
         { property: "og:type", content: "website" },
@@ -147,11 +147,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             "@graph": [
               {
                 "@type": "Organization",
-                "@id": "/#organization",
+                "@id": "https://surcingit.fr/#organization",
                 name: "SurcingIT",
-                url: "/",
+                url: "https://surcingit.fr/",
                 description:
-                  "ESN hybride spécialisée en cybersécurité et en sourcing de talents IT.",
+                  "Société de services hybride spécialisée en cybersécurité et en sourcing de talents IT.",
                 email: "contact@surcingit.fr",
                 areaServed: { "@type": "Country", name: "France" },
                 knowsAbout: [
@@ -165,11 +165,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               },
               {
                 "@type": "WebSite",
-                "@id": "/#website",
+                "@id": "https://surcingit.fr/#website",
                 name: "SurcingIT",
-                url: "/",
+                url: "https://surcingit.fr/",
                 inLanguage: "fr-FR",
-                publisher: { "@id": "/#organization" },
+                publisher: { "@id": "https://surcingit.fr/#organization" },
               },
             ],
           }),

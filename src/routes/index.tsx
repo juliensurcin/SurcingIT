@@ -9,9 +9,10 @@ import { ContactFooter } from "@/components/site/ContactFooter";
 import { useSmoothScroll } from "@/lib/motion";
 import { getRequestOrigin } from "@/lib/origin.functions";
 
-const title = "SurcingIT | ESN cybersécurité & sourcing de talents IT";
+const title =
+  "SurcingIT | Société de services cybersécurité & sourcing de talents IT";
 const description =
-  "ESN hybride orientée terrain : sécurité managée, tests d'intrusion, conseil IT et sourcing de consultants qualifiés.";
+  "Société de services hybride orientée terrain : sécurité managée, tests d'intrusion, conseil IT et sourcing de consultants qualifiés.";
 
 export const Route = createFileRoute("/")({
   loader: () => getRequestOrigin(),

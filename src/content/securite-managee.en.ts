@@ -5,7 +5,7 @@ export const managedHero = {
   titleAccent: "mail, endpoints and network",
   pull: "Endpoint antivirus, a properly configured firewall: most companies have that. Few cover the whole chain, from the mailbox through to their teams' vigilance.",
   paragraphs: [
-    'That\'s precisely what separates "equipped" from "protected". We cover every link — mail, endpoints and servers, monitoring, your teams — with solutions sized to your actual maturity level, not a vendor\'s standard catalogue.',
+    'That\'s precisely what separates "equipped" from "protected". We cover every link, mail, endpoints and servers, monitoring, your teams, with solutions sized to your actual maturity level, not a vendor\'s standard catalogue.',
     "The goal: neutralise threats before they affect your business.",
   ],
   cta: "Review your protection level",
@@ -41,7 +41,7 @@ export const emailProtectionSection = {
     },
     {
       title: "Behavioural anti-phishing",
-      body: "Analysis of domain and link reputation and message tone, to catch targeted attempts — including AI-generated ones — that classic filters let through.",
+      body: "Analysis of domain and link reputation and message tone, to catch targeted attempts, including AI-generated ones, that classic filters let through.",
     },
     {
       title: "Attachment sandboxing",
@@ -99,7 +99,7 @@ export const endpointProtectionSection = {
     },
     {
       title: "Isolation and response",
-      body: "A compromised endpoint is isolated from the network within minutes, while the incident is being assessed — not left connected for hours.",
+      body: "A compromised endpoint is isolated from the network within minutes, while the incident is being assessed, not left connected for hours.",
     },
   ],
 };
@@ -114,7 +114,7 @@ export const levelsSection = {
       code: "SIEM",
       metaphor: "The central ledger",
       full: "Security Information and Event Management",
-      body: "The foundation of it all. SIEM collects and centralises all the event logs of your information system — endpoints, servers, network, applications, cloud — in one place. It's the complete memory of what happens in your organisation, queryable and correlatable at any time: essential for investigating an incident, responding to an audit, or demonstrating regulatory compliance (NIS2, ISO 27001).",
+      body: "The foundation of it all. SIEM collects and centralises all the event logs of your information system: endpoints, servers, network, applications, cloud, in one place. It's the complete memory of what happens in your organisation, queryable and correlatable at any time: essential for investigating an incident, responding to an audit, or demonstrating regulatory compliance (NIS2, ISO 27001).",
       scope: "Logs, correlation, evidence",
       coverage: 24,
     },
@@ -138,7 +138,7 @@ export const levelsSection = {
       code: "XDR",
       metaphor: "The whole house under watch",
       full: "Extended Detection and Response",
-      body: "EDR only looks at endpoints. XDR extends to mail, network, cloud and identities — and, crucially, correlates these signals. A suspicious email in the morning, an unusual login in the afternoon, a data transfer in the evening.",
+      body: "EDR only looks at endpoints. XDR extends to mail, network, cloud and identities, and, crucially, correlates these signals. A suspicious email in the morning, an unusual login in the afternoon, a data transfer in the evening.",
       scope: "Mail, network, cloud, identities",
       coverage: 82,
     },
@@ -208,7 +208,7 @@ export const peopleSection = {
   title: "Your teams",
   paragraphs: [
     "You can stack up the best technology available. One click on the wrong link on a Tuesday morning bypasses all of it.",
-    "Phishing remains an entry point, and it's not a tooling problem — it's a habit problem. We support your teams with simple solutions: phishing simulation campaigns, short training sessions, digestible content.",
+    "Phishing remains an entry point, and it's not a tooling problem, it's a habit problem. We support your teams with simple solutions: phishing simulation campaigns, short training sessions, digestible content.",
     "No three-hour seminar everyone forgets the next day. Regular exercises, concrete reminders, and measurable progress with KPIs delivered to you.",
   ],
   demoLabel: "Demo: could you spot the clues?",
@@ -243,7 +243,7 @@ export const peopleSection = {
       id: "link",
       label: "The link",
       title: "The text doesn't match the destination",
-      body: "The label is reassuring, but the real URL points elsewhere. Hovering over the link before clicking reveals the destination — and the displayed urgency exists precisely to prevent that habit.",
+      body: "The label is reassuring, but the real URL points elsewhere. Hovering over the link before clicking reveals the destination, and the displayed urgency exists precisely to prevent that habit.",
     },
     {
       id: "attachment",
@@ -265,7 +265,7 @@ export const peopleSection = {
     },
     {
       title: "Reporting rate",
-      body: "The share of staff who report the message instead of acting on it — the indicator that really matters over time.",
+      body: "The share of staff who report the message instead of acting on it, the indicator that really matters over time.",
     },
     {
       title: "Reaction time",

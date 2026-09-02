@@ -51,7 +51,7 @@ export const iso27001Section = {
       { value: "93", label: "security measures in Annex A" },
       { value: "3 years", label: "certification validity period" },
     ],
-    body: "The 93 measures break down into 4 themes: 37 organisational, 8 human, 14 physical and 34 technological. Not all apply with the same intensity to your organisation — that's the purpose of the Statement of Applicability (SoA).",
+    body: "The 93 measures break down into 4 themes: 37 organisational, 8 human, 14 physical and 34 technological. Not all apply with the same intensity to your organisation, that's the purpose of the Statement of Applicability (SoA).",
     linkBody: "The reference text and official catalogue are published by ISO.",
     linkLabel: "ISO/IEC 27001:2022 (iso.org)",
     linkHref: "https://www.iso.org/standard/27001",

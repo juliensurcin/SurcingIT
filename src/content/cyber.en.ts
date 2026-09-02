@@ -4,7 +4,7 @@ export const cyberHero = {
   titleTail: ": our cybersecurity practice",
   paragraphs: [
     "Cybersecurity isn't a product you buy once. It's a combination of continuous protection, regular checks, and rules that hold up over time.",
-    "Our cybersecurity practice covers these three dimensions with the same rigour: certified consultants, an approach tailored to your actual context, and actionable results — not one more report left in a drawer.",
+    "Our cybersecurity practice covers these three dimensions with the same rigour: certified consultants, an approach tailored to your actual context, and actionable results, not one more report left in a drawer.",
   ],
   cta: "Talk to us about your information system",
 };

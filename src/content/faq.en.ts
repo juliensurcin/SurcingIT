@@ -82,7 +82,7 @@ export const faqCategories: FaqCategory[] = [
       },
       {
         q: "We already have an antivirus, isn't that enough?",
-        a: "An antivirus blocks catalogued threats. But current attacks often use legitimate tools turned against you, or code never seen before — exactly the gap EDR fills.",
+        a: "An antivirus blocks catalogued threats. But current attacks often use legitimate tools turned against you, or code never seen before, exactly the gap EDR fills.",
       },
       {
         q: "Can our data stay in Europe?",
@@ -98,7 +98,7 @@ export const faqCategories: FaqCategory[] = [
       },
       {
         q: "MDR: what exactly does it cover?",
-        a: "MDR (Managed Detection and Response) combines detection tools, the analyst team operating them 24/7, and response capability: isolating a compromised endpoint, blocking an account, stopping a malicious process. The difference from simple monitoring is that we don't just alert you — we act within the perimeter agreed with you.",
+        a: "MDR (Managed Detection and Response) combines detection tools, the analyst team operating them 24/7, and response capability: isolating a compromised endpoint, blocking an account, stopping a malicious process. The difference from simple monitoring is that we don't just alert you, we act within the perimeter agreed with you.",
       },
     ],
   },
@@ -144,7 +144,7 @@ export const faqCategories: FaqCategory[] = [
     items: [
       {
         q: "What's GRC, in one sentence?",
-        a: "GRC brings together three related activities: defining your organisation's security rules (Governance), identifying and prioritising what could go wrong (Risk), and meeting — and demonstrating if needed — the legal obligations that apply to you (Compliance).",
+        a: "GRC brings together three related activities: defining your organisation's security rules (Governance), identifying and prioritising what could go wrong (Risk), and meeting, and demonstrating if needed, the legal obligations that apply to you (Compliance).",
       },
       {
         q: "What's ReCyF?",
@@ -171,7 +171,7 @@ export const faqCategories: FaqCategory[] = [
         a: "No, certification isn't required by NIS2. But a security management system aligned with ISO 27001:2022 covers a large share of ReCyF's expectations, avoiding two parallel projects. Many organisations use ISO 27001 as their backbone, then add NIS2-specific requirements on top, notably incident notification.",
       },
       {
-        q: "We don't have an in-house CISO — does that block us from moving forward on GRC?",
+        q: "We don't have an in-house CISO, does that block us from moving forward on GRC?",
         a: "No. It's actually a common situation: it's precisely the role of CISO as a Service or one-off advisory, which carry out the implementation of what's defined here.",
       },
       {
@@ -183,12 +183,12 @@ export const faqCategories: FaqCategory[] = [
         a: "An outsourced CISO, engaged a few days a month based on your needs, rather than a full-time hire. You get the same level of expertise, with a cost and commitment proportionate to your size. It's become the norm for many SMEs and mid-sized companies facing growing obligations.",
       },
       {
-        q: "We're a small organisation — is this for us?",
+        q: "We're a small organisation, is this for us?",
         a: "Often, yes, especially now that your clients or insurer are sending you security questionnaires. The good news is the setup scales: a 30-person company doesn't need the same level of formality as a 3,000-person group. The classic mistake is trying to apply large-company methods.",
       },
       {
         q: "What's the difference with an audit?",
-        a: "An audit gives a snapshot at a given moment. Strategic advisory supports you over time: it starts from that snapshot to build and steer a plan. The two combine well — the audit or penetration test provides the diagnosis, advisory drives the treatment.",
+        a: "An audit gives a snapshot at a given moment. Strategic advisory supports you over time: it starts from that snapshot to build and steer a plan. The two combine well, the audit or penetration test provides the diagnosis, advisory drives the treatment.",
       },
       {
         q: "Do you work on the tools you also sell?",

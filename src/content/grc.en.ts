@@ -29,7 +29,7 @@ export const nis2Section = {
   ],
   callout: {
     label: "ReCyF, your reference roadmap",
-    body: "In March 2026, ANSSI (the French cybersecurity agency) published the Référentiel Cyber France (ReCyF): a document that translates NIS2 obligations into 20 concrete security objectives, backed by 152 acceptable compliance measures. It's not yet legally binding, but it's already the reference — aligning with it puts you in a favourable position for any future inspection.",
+    body: "In March 2026, ANSSI (the French cybersecurity agency) published the Référentiel Cyber France (ReCyF): a document that translates NIS2 obligations into 20 concrete security objectives, backed by 152 acceptable compliance measures. It's not yet legally binding, but it's already the reference, aligning with it puts you in a favourable position for any future inspection.",
     stats: [
       { value: "20", label: "security objectives" },
       { value: "152", label: "compliance measures" },

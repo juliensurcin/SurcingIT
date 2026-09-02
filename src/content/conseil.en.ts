@@ -7,7 +7,7 @@ export const conseilDomains = {
     {
       title: "Digital transformation",
       body: "Cloud migration, infrastructure overhaul, ERP change, launching an online service. These projects create new exposure surfaces, and security almost always arrives too late in the schedule.",
-      note: "We step in upstream, when the structural decisions are made — not at acceptance testing, when fixing things costs ten times more.",
+      note: "We step in upstream, when the structural decisions are made, not at acceptance testing, when fixing things costs ten times more.",
       tags: ["Cloud", "IT overhaul", "ERP"],
     },
     {

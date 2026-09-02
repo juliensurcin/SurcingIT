@@ -6,7 +6,7 @@ export const sourcingHero = {
   paragraphs: [
     "Have you ever screened ten CVs and kept none of them? Or received CVs from recruiters who send you everything they can find, hoping something sticks?",
     "At SurcingIT, no profile reaches a client without going through one of our engineers first. Not a recruiter ticking boxes off a job spec, but an engineer who speaks the same language as the candidate, and who can tell the difference between someone who listed a skill on their CV and someone who has actually practised it.",
-    "We don't send you CVs in bulk — we send you CVs that match your specific needs.",
+    "We don't send you CVs in bulk, we send you CVs that match your specific needs.",
   ],
   cta: "Tell us about your need",
 };
@@ -58,9 +58,9 @@ export const formulasSection = {
     },
     {
       title: "Try-before-you-hire",
-      body: "A hybrid format, often the most relevant one. The consultant starts on staff augmentation: you work together in real conditions. If the collaboration confirms the fit, you bring them on board internally — we waive the non-compete clause, with no conversion penalty.",
+      body: "A hybrid format, often the most relevant one. The consultant starts on staff augmentation: you work together in real conditions. If the collaboration confirms the fit, you bring them on board internally, we waive the non-compete clause, with no conversion penalty.",
       noteLabel: "Why it's worth it",
-      note: "You're not betting on a one-hour interview — you decide after several months of real collaboration. The consultant keeps their flexibility at first and gains stability afterwards.",
+      note: "You're not betting on a one-hour interview, you decide after several months of real collaboration. The consultant keeps their flexibility at first and gains stability afterwards.",
     },
   ],
 };
@@ -77,7 +77,7 @@ export const consultantSide = {
     },
     {
       title: "Financial optimisation",
-      body: "We advise our consultants on structuring their income — salary, dividends, legal form — based on their activity.",
+      body: "We advise our consultants on structuring their income, salary, dividends, legal form, based on their activity.",
     },
     {
       title: "Administrative support and company setup",

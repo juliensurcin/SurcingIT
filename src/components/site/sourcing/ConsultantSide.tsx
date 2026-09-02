@@ -1,7 +1,8 @@
-import { consultantSide } from "@/content/sourcing";
+import { useSourcingContent } from "@/content/sourcing";
 import { useScrollReveal } from "@/lib/motion";
 
 export function ConsultantSide() {
+  const { consultantSide } = useSourcingContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-benefit]",
     variant: "rows",

@@ -1,8 +1,9 @@
-import { formulasSection } from "@/content/sourcing";
+import { useSourcingContent } from "@/content/sourcing";
 import { useScrollReveal } from "@/lib/motion";
 import { ScrollPath } from "./ScrollPath";
 
 export function Formulas() {
+  const { formulasSection } = useSourcingContent();
   const ref = useScrollReveal<HTMLDivElement>({
     stagger: "[data-formula]",
     variant: "rows",

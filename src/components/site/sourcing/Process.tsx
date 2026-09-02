@@ -1,7 +1,8 @@
-import { processSection } from "@/content/sourcing";
+import { useSourcingContent } from "@/content/sourcing";
 import { Journey } from "./Journey";
 
 export function Process() {
+  const { processSection } = useSourcingContent();
   return (
     <section id="processus" className="border-t border-border bg-surface">
       <div className="mx-auto max-w-[1400px] px-6 py-16 md:py-20 lg:px-10">

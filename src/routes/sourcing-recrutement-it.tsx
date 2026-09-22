@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getRequestOrigin } from "@/lib/origin.functions";
+import { SITE_URL } from "@/lib/site";
 import { SourcingPage } from "@/components/site/sourcing/SourcingPage";
 
 const title = "Recrutement IT & sourcing de profils techniques - SurcingIT";
@@ -8,8 +8,7 @@ const description =
 const path = "/sourcing-recrutement-it";
 
 export const Route = createFileRoute("/sourcing-recrutement-it")({
-  loader: () => getRequestOrigin(),
-  head: ({ loaderData }) => ({
+  head: () => ({
     meta: [
       { title },
       { name: "description", content: description },
@@ -21,16 +20,12 @@ export const Route = createFileRoute("/sourcing-recrutement-it")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: path },
+      { property: "og:url", content: `${SITE_URL}${path}` },
       { name: "twitter:card", content: "summary_large_image" },
-      ...(loaderData
-        ? [
-            { property: "og:image", content: `${loaderData}/og-image.jpg` },
-            { name: "twitter:image", content: `${loaderData}/og-image.jpg` },
-          ]
-        : []),
+      { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
+      { name: "twitter:image", content: `${SITE_URL}/og-image.jpg` },
     ],
-    links: [{ rel: "canonical", href: path }],
+    links: [{ rel: "canonical", href: `${SITE_URL}${path}` }],
     scripts: [
       {
         type: "application/ld+json",
@@ -68,13 +63,13 @@ export const Route = createFileRoute("/sourcing-recrutement-it")({
                   "@type": "ListItem",
                   position: 1,
                   name: "Accueil",
-                  item: "/",
+                  item: SITE_URL,
                 },
                 {
                   "@type": "ListItem",
                   position: 2,
                   name: "Sourcing & Recrutement IT",
-                  item: path,
+                  item: `${SITE_URL}${path}`,
                 },
               ],
             },

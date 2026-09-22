@@ -7,7 +7,7 @@ import { ConsultantCare } from "@/components/site/ConsultantCare";
 import { About } from "@/components/site/About";
 import { ContactFooter } from "@/components/site/ContactFooter";
 import { useSmoothScroll } from "@/lib/motion";
-import { getRequestOrigin } from "@/lib/origin.functions";
+import { SITE_URL } from "@/lib/site";
 
 const title =
   "SurcingIT | Société de services cybersécurité & sourcing de talents IT";
@@ -15,24 +15,19 @@ const description =
   "Société de services hybride orientée terrain : sécurité managée, tests d'intrusion, conseil IT et sourcing de consultants qualifiés.";
 
 export const Route = createFileRoute("/")({
-  loader: () => getRequestOrigin(),
-  head: ({ loaderData }) => ({
+  head: () => ({
     meta: [
       { title },
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: SITE_URL },
       { name: "twitter:card", content: "summary_large_image" },
-      ...(loaderData
-        ? [
-            { property: "og:image", content: `${loaderData}/og-image.jpg` },
-            { name: "twitter:image", content: `${loaderData}/og-image.jpg` },
-          ]
-        : []),
+      { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
+      { name: "twitter:image", content: `${SITE_URL}/og-image.jpg` },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: SITE_URL }],
   }),
   component: Index,
 });

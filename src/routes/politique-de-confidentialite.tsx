@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SITE_URL } from "@/lib/site";
 import { LegalPage } from "@/components/site/LegalPage";
 
 const title = "Politique de confidentialité | SurcingIT";
@@ -14,9 +15,14 @@ export const Route = createFileRoute("/politique-de-confidentialite")({
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:url", content: "/politique-de-confidentialite" },
+      {
+        property: "og:url",
+        content: `${SITE_URL}/politique-de-confidentialite`,
+      },
     ],
-    links: [{ rel: "canonical", href: "/politique-de-confidentialite" }],
+    links: [
+      { rel: "canonical", href: `${SITE_URL}/politique-de-confidentialite` },
+    ],
   }),
   component: () => <LegalPage variant="privacy" />,
 });

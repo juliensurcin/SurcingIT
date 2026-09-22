@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SITE_URL } from "@/lib/site";
 import { FaqPage } from "@/components/site/FaqPage";
 import { faqCategories } from "@/content/faq";
 
@@ -16,9 +17,9 @@ export const Route = createFileRoute("/faq")({
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:url", content: path },
+      { property: "og:url", content: `${SITE_URL}${path}` },
     ],
-    links: [{ rel: "canonical", href: path }],
+    links: [{ rel: "canonical", href: `${SITE_URL}${path}` }],
     scripts: [
       {
         type: "application/ld+json",
@@ -32,9 +33,14 @@ export const Route = createFileRoute("/faq")({
                   "@type": "ListItem",
                   position: 1,
                   name: "Accueil",
-                  item: "/",
+                  item: SITE_URL,
                 },
-                { "@type": "ListItem", position: 2, name: "FAQ", item: path },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "FAQ",
+                  item: `${SITE_URL}${path}`,
+                },
               ],
             },
             {

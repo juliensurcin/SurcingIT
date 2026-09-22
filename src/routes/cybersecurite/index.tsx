@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getRequestOrigin } from "@/lib/origin.functions";
+import { SITE_URL } from "@/lib/site";
 import { CyberPage } from "@/components/site/cyber/CyberPage";
 import { pillarsSection } from "@/content/cyber";
 
@@ -9,8 +9,7 @@ const description =
 const path = "/cybersecurite";
 
 export const Route = createFileRoute("/cybersecurite/")({
-  loader: () => getRequestOrigin(),
-  head: ({ loaderData }) => ({
+  head: () => ({
     meta: [
       { title },
       { name: "description", content: description },
@@ -22,16 +21,12 @@ export const Route = createFileRoute("/cybersecurite/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: path },
+      { property: "og:url", content: `${SITE_URL}${path}` },
       { name: "twitter:card", content: "summary_large_image" },
-      ...(loaderData
-        ? [
-            { property: "og:image", content: `${loaderData}/og-image.jpg` },
-            { name: "twitter:image", content: `${loaderData}/og-image.jpg` },
-          ]
-        : []),
+      { property: "og:image", content: `${SITE_URL}/og-image.jpg` },
+      { name: "twitter:image", content: `${SITE_URL}/og-image.jpg` },
     ],
-    links: [{ rel: "canonical", href: path }],
+    links: [{ rel: "canonical", href: `${SITE_URL}${path}` }],
     scripts: [
       {
         type: "application/ld+json",
@@ -79,13 +74,13 @@ export const Route = createFileRoute("/cybersecurite/")({
                   "@type": "ListItem",
                   position: 1,
                   name: "Accueil",
-                  item: "/",
+                  item: SITE_URL,
                 },
                 {
                   "@type": "ListItem",
                   position: 2,
                   name: "Pôle Cybersécurité",
-                  item: path,
+                  item: `${SITE_URL}${path}`,
                 },
               ],
             },

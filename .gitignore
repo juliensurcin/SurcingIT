@@ -24,7 +24,7 @@ yarn-error.log*
 .vscode/
 .idea/
 
-# Claude Code / tooling local state
+# Local tooling state
 .impeccable/
 .agents/
 skills-lock.json
